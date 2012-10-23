@@ -1,0 +1,7 @@
+FOR    - people on a low-carb diet
+WHO    - are seeking a useful food database
+THE    - Ketopi App 
+    IS A(N)  - Android App 
+THAT   - provides an easy to use food search
+UNLIKE - USDA Food Database Android App.
+OUR PRODUCT - provides useful low-carb related annotations.

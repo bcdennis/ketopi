@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Breadcrumbs" id="5" x="16" y="8" text="Search,Cheese Brie" measuredWidth="126" measuredHeight="23">
+    <font/>
+    <items x="0" y="0" width="37" height="23" text="Search"/>
+    <items x="57" y="0" width="66" height="23" text="Cheese Brie"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="7" x="16" y="80" text="1 cup, melted (240g)" measuredWidth="120" measuredHeight="23">
+    <font bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="8" x="134" y="80" text="Serving Size" measuredWidth="71" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextArea" id="9" x="16" y="102" text="0 Net Carbs" measuredWidth="92" measuredHeight="23">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:TextArea" id="10" x="112" y="102" text="862 Calories" measuredWidth="96" measuredHeight="23">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="11" x="16" y="30" text="Cheese, brie" measuredWidth="243" measuredHeight="57">
+    <font size="43px"/>
+  </widgets>
+  <widgets xsi:type="model:Table" id="12" x="16" y="144" width="192" text="Macros, APS&#xA;Calories, 802kcal&#xA;Protein, 50g&#xA;Fat, 67g&#xA;Carbohydrates, NA&#xA;Fiber, NA&#xA;Sugars, NA&#xA;Net Carbs, NA" measuredWidth="192" measuredHeight="172" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Table" id="13" x="16" y="320" width="192" text="Fats, APS&#xA;Saturated, 41g&#xA;Monounsaturated, 19g&#xA;Polyunsaturated, 2g&#xA;Trans, NA" measuredWidth="192" measuredHeight="109" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Table" id="14" x="16" y="440" width="192" text="Sugars, APS&#xA;Sucrose, NA&#xA;Glucose, NA&#xA;Fructose, NA&#xA;Lactose, NA&#xA;Maltose, NA&#xA;Galactose, NA&#xA;Starch, NA" measuredWidth="192" measuredHeight="172" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Table" id="15" x="16" y="624" width="192" text="Electrolytes, APS&#xA;Calcium\, Ca, 442mg&#xA;Magnesium\, Mg, 48mg&#xA;Potassium\, K, 365mg&#xA;Sodium\, Na, 1510mg" measuredWidth="192" measuredHeight="109" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>
