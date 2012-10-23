@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:SearchField" id="1" x="46" y="39" text="Search our database here..." measuredWidth="179" measuredHeight="24">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Image" id="2" x="80" y="8"/>
+  <widgets xsi:type="model:Button" id="3" x="224" y="38" text="Go" measuredWidth="35" measuredHeight="25">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

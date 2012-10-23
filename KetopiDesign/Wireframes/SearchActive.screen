@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:SearchField" id="1" x="46" y="39" width="179" text="Cheese" measuredWidth="179" measuredHeight="24">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="2" x="224" y="38" text="Go" measuredWidth="35" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:List" id="4" x="46" y="62" width="179" text="Cheese, blue&#xA;Cheese, brick&#xA;|Cheese, brie&#xA;Cheese, camembert&#xA;Cheese, caraway&#xA;" measuredWidth="179" measuredHeight="109">
+    <font/>
+    <items x="0" y="2" width="179" height="21" text="Cheese, blue"/>
+    <items x="0" y="23" width="179" height="21" text="Cheese, brick"/>
+    <items x="0" y="44" width="179" height="21" text="|Cheese, brie"/>
+    <items x="0" y="65" width="179" height="21" text="Cheese, camembert"/>
+    <items x="0" y="86" width="179" height="21" text="Cheese, caraway"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>
