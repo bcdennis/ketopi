@@ -1,6 +1,0 @@
-AS A(N): low-carb dieter
-I WANT TO: search for a food
-SO THAT I CAN: review the macros
-
-
-ESTIMATE: 10 hours

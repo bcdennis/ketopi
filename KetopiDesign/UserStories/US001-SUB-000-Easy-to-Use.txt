@@ -1,0 +1,6 @@
+AS A(N): low-carb dieter
+I WANT TO: a simple search interface
+SO THAT I CAN: easily find interesting foods
+
+
+ESTIMATE: 5 hours

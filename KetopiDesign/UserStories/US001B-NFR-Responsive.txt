@@ -1,4 +1,0 @@
-AS A(N): low-carb dieter
-I WANT TO: simple search interface
-SO THAT I CAN: look for foods in an unobtrusive UI.
-

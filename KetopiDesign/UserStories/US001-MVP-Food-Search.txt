@@ -1,7 +1,9 @@
 AS A(N): low-carb dieter
 I WANT TO: search for a food
-SO THAT I CAN: review the macros
+SO THAT I CAN: review the macros to decide if this food will keep me in or put
+    me out of ketosis.
 
 
-ESTIMATE: 10 hours
+ESTIMATE: 25 hours
+
 
