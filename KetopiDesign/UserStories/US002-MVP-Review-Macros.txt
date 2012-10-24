@@ -1,0 +1,6 @@
+AS A(N): low-carb dieter
+I WANT TO: review macros
+SO THAT: determine if the food is compliant with my diet.
+
+
+ESTIMATE: 20 hours
