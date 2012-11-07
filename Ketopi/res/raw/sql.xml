@@ -1,0 +1,31 @@
+<sql>
+<statement>
+CREATE TABLE IF NOT EXISTS food_cache (
+	_id INTEGER PRIMARY KEY AUTOINCREMENT, 
+	ndb_no INTEGER, 
+	food VARCHAR(100), 
+	serving VARCHAR(100), 
+    serving_size INTEGER,
+	calories INTEGER, 
+	protein INTEGER, 
+	fat INTEGER, 
+	carbs INTEGER, 
+    fiber INTEGER, 
+    sugars INTEGER, 
+    monounsaturated INTEGER, 
+    polyunsaturated INTEGER, 
+    transfat INTEGER, 
+    sucrose INTEGER, 
+    fructose INTEGER, 
+    lactose INTEGER, 
+    maltose INTEGER, 
+    galactose INTEGER, 
+    starch INTEGER, 
+    calcium INTEGER, 
+    magnesium INTEGER, 
+    potassium INTEGER, 
+    sodium INTEGER 
+</statement>
+<statement>INSERT INTO food_cache VALUES(1,1111,'Cheese, Test1','1 serving', '111', 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21)</statement>
+<statement>INSERT INTO food_cache VALUES(2,2222,'Cheese, Test2','1 serving', '222', 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21)</statement>
+</sql>
