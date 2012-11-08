@@ -7,48 +7,74 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * The Class SearchListAdapter.
+ */
 public class SearchListAdapter extends ArrayAdapter<Food> {
 
-	static class ViewHolder {
-		public TextView foodDescription;
-		public TextView foodServing;
-		public TextView foodNetCarbs;
-	}
+    /**
+     * The Class ViewHolder.
+     */
+    static class ViewHolder {
 
-	private final Food[] mFoods;
-	private final Activity mContext;
+        /** The food description. */
+        // CHECKSTYLE.OFF: Visibility - Explicit use of the Holder Pattern
+        public TextView foodDescription;
 
-	public SearchListAdapter(final Activity context, final Food[] foods) {
-		super(context, R.layout.search_list_item, foods);
+        /** The food serving. */
+        public TextView foodServing;
 
-		mContext = context;
-		mFoods = foods;
-	}
+        /** The food net Carbohydratess. */
+        public TextView foodNetCarbs;
+        // CHECKSTYLE.ON: Visibility
+    }
 
-	@Override
-	public View getView(final int position, final View convertView, final ViewGroup parent) {
-		View rowView = convertView;
-		if (rowView == null) {
-			LayoutInflater inflater = mContext.getLayoutInflater();
-			rowView = inflater.inflate(R.layout.search_list_item, null);
+    /** The Foods. */
+    private final Food[] mFoods;
 
-			ViewHolder viewHolder = new ViewHolder();
-			viewHolder.foodDescription = (TextView) rowView
-					.findViewById(R.id.foodDescription);
-			viewHolder.foodServing = (TextView) rowView
-					.findViewById(R.id.foodServing);
-			viewHolder.foodNetCarbs = (TextView) rowView
-					.findViewById(R.id.foodNetCarbs);
-			rowView.setTag(viewHolder);
-		}
+    /** The Context. */
+    private final Activity mContext;
 
-		ViewHolder holder = (ViewHolder) rowView.getTag();
-		Food item = mFoods[position];
+    /**
+     * Instantiates a new search list adapter.
+     *
+     * @param context the context
+     * @param foods the foods
+     */
+    public SearchListAdapter(final Activity context, final Food[] foods) {
+        super(context, R.layout.search_list_item, foods);
 
-		holder.foodDescription.setText(item.getDescription());
-		holder.foodServing.setText(item.getServing());
-		holder.foodNetCarbs.setText(item.getNetCarbs());
+        mContext = context;
+        mFoods = foods;
+    }
 
-		return rowView;
-	}
+    /* (non-Javadoc)
+     * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
+     */
+    @Override
+    public View getView(final int position, final View convertView, final ViewGroup parent) {
+        View rowView = convertView;
+        if (rowView == null) {
+            LayoutInflater inflater = mContext.getLayoutInflater();
+            rowView = inflater.inflate(R.layout.search_list_item, null);
+
+            ViewHolder viewHolder = new ViewHolder();
+            viewHolder.foodDescription = (TextView) rowView
+                    .findViewById(R.id.foodDescription);
+            viewHolder.foodServing = (TextView) rowView
+                    .findViewById(R.id.foodServing);
+            viewHolder.foodNetCarbs = (TextView) rowView
+                    .findViewById(R.id.foodNetCarbs);
+            rowView.setTag(viewHolder);
+        }
+
+        ViewHolder holder = (ViewHolder) rowView.getTag();
+        Food item = mFoods[position];
+
+        holder.foodDescription.setText(item.getDescription());
+        holder.foodServing.setText(item.getServing());
+        holder.foodNetCarbs.setText(item.getNetCarbs());
+
+        return rowView;
+    }
 }

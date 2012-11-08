@@ -2,36 +2,67 @@ package com.ketopi.app;
 
 import android.widget.ListView;
 
+/**
+ * The Class Searcher.
+ */
+public class Searcher implements ISearchTaskCompleteListener<String, Food[]> {
 
+    /** The Results view. */
+    private ListView mResultsView;
 
-public class Searcher implements SearchTaskCompleteListener<String, Food[]> {
+    /** The Parent activity. */
+    private SearchActivity mParentActivity;
 
-	private ListView mResultsView;
-	private SearchActivity mParentActivity;
-	private String mQuery = "";
+    /** The Query. */
+    private String mQuery = "";
 
-	public Searcher(final SearchActivity parent, final ListView resultsListView) {
+    /**
+     * Instantiates a new searcher.
+     *
+     * @param parent the parent
+     * @param resultsListView the results list view
+     */
+    public Searcher(final SearchActivity parent, final ListView resultsListView) {
 
-		mParentActivity = parent;
-		mResultsView = resultsListView;
-	}
+        mParentActivity = parent;
+        mResultsView = resultsListView;
+    }
 
-	public String getQuery() {
-		return mQuery;
-	}
+    /**
+     * Gets the query.
+     *
+     * @return the query
+     */
+    public String getQuery() {
+        return mQuery;
+    }
 
-	public void onTaskComplete(final String query, final Food[] results) {
+    /* (non-Javadoc)
+     * @see com.ketopi.app.ISearchTaskCompleteListener#onTaskComplete(java.lang.Object, java.lang.Object)
+     */
+    /**
+     * Callback for the completion of the search task.
+     *
+     * @param query - the original query string.
+     * @param results - the results array.
+     */
+    public void onTaskComplete(final String query, final Food[] results) {
 
-		mParentActivity.cacheSearchResults(results);
-		SearchListAdapter adapter = new SearchListAdapter(mParentActivity,
-				results);
-		mResultsView.setAdapter(adapter);
-	}
+        mParentActivity.cacheSearchResults(results);
+        SearchListAdapter adapter = new SearchListAdapter(mParentActivity,
+                results);
+        mResultsView.setAdapter(adapter);
+    }
 
-	public void query(final String queryString) {
-		mQuery = queryString;
-		new SearchTask(mParentActivity, this).execute(mQuery);
+    /**
+     * Query.
+     *
+     * @param queryString the query string
+     */
+    public void query(final String queryString) {
+        mQuery = queryString;
+        new SearchTask(mParentActivity, this).execute(mQuery);
 
-	}
+    }
 
 }

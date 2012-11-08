@@ -13,99 +13,128 @@ import android.os.AsyncTask;
 import com.ketopi.rest.RESTClient;
 import com.ketopi.rest.RESTMethod;
 
+/**
+ * The Class SearchTask.
+ */
 public class SearchTask extends AsyncTask<String, Void, String> {
 
-	private static String API = "http://www.ketopi.com/api/";
-	private static String SEARCH = "search.json?query=";
+    /** The Constant HTTP_OK. */
+    private static final int HTTP_OK = 200;
 
+    /** The API Url. */
+    private static final String API = "http://www.ketopi.com/api/";
 
-	private static String API_TEST = "http://www.ketopi.com/api_test/";
-	private static String SEARCH_LR = "search_longrunning.json?query=";
-	private static String SEARCH_MF = "search_malformed.json?query=";
+    /** The search. */
+    private static final String SEARCH = "search.json?query=";
 
-	private SearchTaskCompleteListener<String, Food[]> mCallback;
+    /** The Test API Url. */
+    @SuppressWarnings("unused")
+    private static final String TESTAPI = "http://www.ketopi.com/api_test/";
 
-	private ProgressDialog mProgress;
+    /** The Long Running Search Test Method. */
+    @SuppressWarnings("unused")
+    private static final String SEARCHLONGRUNNING = "search_longrunning.json?query=";
 
+    /** The Malformed Search Test Method. */
+    @SuppressWarnings("unused")
+    private static final String SEARCHMALFORMED = "search_malformed.json?query=";
 
-	public SearchTask(final Context context,
-			final SearchTaskCompleteListener<String, Food[]> listener) {
+    /** The Callback. */
+    private ISearchTaskCompleteListener<String, Food[]> mCallback;
 
+    /** The Progress. */
+    private ProgressDialog mProgress;
 
-		mProgress = new ProgressDialog(context, R.style.BusyWaitDialog);
-		mProgress.setMessage(context.getString(R.string.searchDialog_text));
-		mCallback = listener;
+    /**
+     * Instantiates a new search task.
+     *
+     * @param context the context
+     * @param listener the listener
+     */
+    public SearchTask(final Context context,
+            final ISearchTaskCompleteListener<String, Food[]> listener) {
 
-	}
+        mProgress = new ProgressDialog(context, R.style.BusyWaitDialog);
+        mProgress.setMessage(context.getString(R.string.searchDialog_text));
+        mCallback = listener;
 
-	@Override
-	protected String doInBackground(final String... args) {
+    }
 
-		String query = args[0];
-		String result = "";
+    /* (non-Javadoc)
+     * @see android.os.AsyncTask#doInBackground(Params[])
+     */
+    @Override
+    protected String doInBackground(final String... args) {
 
-		RESTClient client = new RESTClient(API + SEARCH
-				+ URLEncoder.encode(query));
+        String query = args[0];
+        String result = "";
 
-		// client = new RESTClient(API_TEST + SEARCH_LR +
-		// URLEncoder.encode(query));
+        RESTClient client = new RESTClient(API + SEARCH
+                + URLEncoder.encode(query));
 
-		// client = new RESTClient(API_TEST + SEARCH_MF +
-		// URLEncoder.encode(query));
+        // client = new RESTClient(API_TEST + SEARCH_LR +
+        // URLEncoder.encode(query));
 
-		try {
-			client.execute(RESTMethod.GET);
-			if (client.getResponseCode() != 200) {
-				// return server error
-				return client.getErrorMessage();
-			}
-			// return valid data
-			result = client.getResponse();
+        // client = new RESTClient(API_TEST + SEARCH_MF +
+        // URLEncoder.encode(query));
 
-		} catch (Exception e) {
-			return e.toString();
-		}
+        try {
+            client.execute(RESTMethod.GET);
+            if (client.getResponseCode() != HTTP_OK) {
+                // return server error
+                return client.getErrorMessage();
+            }
+            // return valid data
+            result = client.getResponse();
 
-		return result;
-	}
+        } catch (Exception e) {
+            return e.toString();
+        }
 
-	@Override
-	protected void onPostExecute(final String responseString) {
+        return result;
+    }
 
-		String query = "";
-		Food[] results = null;
-		String str = responseString.trim() + "}";
+    /* (non-Javadoc)
+     * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+     */
+    @Override
+    protected final void onPostExecute(final String responseString) {
 
-		try {
-			JSONObject response = new JSONObject(str);
-			query = response.getString("query");
-			JSONArray json = response.getJSONArray("results");
-			results = new Food[json.length()];
+        String query = "";
+        Food[] results = null;
+        String str = responseString.trim() + "}";
 
-			for (int i = 0; i < json.length(); ++i) {
-				results[i] = new Food(json.getJSONObject(i));
-			}
+        try {
+            JSONObject response = new JSONObject(str);
+            query = response.getString("query");
+            JSONArray json = response.getJSONArray("results");
+            results = new Food[json.length()];
 
-		} catch (JSONException e) {
-			// BADSMELL Auto-generated Catch Block
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            for (int i = 0; i < json.length(); ++i) {
+                results[i] = new Food(json.getJSONObject(i));
+            }
 
-		mProgress.dismiss();
+        } catch (JSONException e) {
+            // BADSMELL Auto-generated catch block
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		mCallback.onTaskComplete(query, results);
-	}
+        mProgress.dismiss();
 
+        mCallback.onTaskComplete(query, results);
+    }
 
+    /* (non-Javadoc)
+     * @see android.os.AsyncTask#onPreExecute()
+     */
+    @Override
+    protected final void onPreExecute() {
 
-	@Override
-	protected void onPreExecute() {
+        mProgress.setIndeterminate(true);
+        mProgress.setCancelable(false);
+        mProgress.show();
 
-		mProgress.setIndeterminate(true);
-		mProgress.setCancelable(false);
-		mProgress.show();
-
-	}
+    }
 
 }

@@ -42,214 +42,344 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 
-import android.content.Context;
-
+/**
+ * @author Brad Dennis
+ */
 public class RESTClient {
 
-	private static String convertStreamToString(final InputStream is) {
+    /**
+     * Timeout for HTTP and Socket connection.
+     */
+    private static final int THIRTY_SECONDS = 30 * 1000;
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-		StringBuilder sb = new StringBuilder();
+    /**
+     * @param is
+     *            the InputStream
+     * @return the converted string.
+     */
+    private static String convertStreamToString(final InputStream is) {
 
-		String line = null;
-		try {
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return sb.toString();
-	}
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
 
-	private boolean authentication;
+        String line = null;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
 
-	private ArrayList<NameValuePair> headers;
-	private String jsonBody;
+    /**
+     * Flag to use or not use Authentication.
+     */
+    private boolean mAuthentication;
 
-	private String message;
-	private ArrayList<NameValuePair> params;
-	private String response;
+    /**
+     * The HTTP Headers.
+     */
+    private ArrayList<NameValuePair> mHeaders;
 
-	private int responseCode;
+    /**
+     * The message returned from the server.
+     */
+    private String                   mMessage;
 
-	private String url;
-	// HTTP Basic Authentication
-	private String username;
+    /**
+     * The Name-Value Parameter list.
+     */
+    private ArrayList<NameValuePair> mParams;
 
-	private String password;
+    /**
+     * The JSON Body.
+     */
+    private String                   mJsonBody;
 
-	protected Context context;
+    private String mResponse;
 
-	public RESTClient(final String url) {
-		this.url = url;
-		params = new ArrayList<NameValuePair>();
-		headers = new ArrayList<NameValuePair>();
-	}
+    private int mResponseCode;
 
-	// Be warned that this is sent in clear text, don't use basic auth unless
-	// you have to.
-	public void addBasicAuthentication(final String user, final String pass) {
-		authentication = true;
-		username = user;
-		password = pass;
-	}
+    private String                   mUrl;
 
-	private HttpUriRequest addBodyParams(final HttpUriRequest request)
-			throws Exception {
-		if (jsonBody != null) {
-			request.addHeader("Content-Type", "application/json");
-			if (request instanceof HttpPost) {
-				((HttpPost) request).setEntity(new StringEntity(jsonBody,
-						"UTF-8"));
-			} else if (request instanceof HttpPut) {
-				((HttpPut) request).setEntity(new StringEntity(jsonBody,
-						"UTF-8"));
-			}
+    // HTTP Basic Authentication
+    private String mUsername;
+    private String mPassword;
 
-		} else if (!params.isEmpty()) {
-			if (request instanceof HttpPost) {
-				((HttpPost) request).setEntity(new UrlEncodedFormEntity(params,
-						HTTP.UTF_8));
-			} else if (request instanceof HttpPut) {
-				((HttpPut) request).setEntity(new UrlEncodedFormEntity(params,
-						HTTP.UTF_8));
-			}
-		}
-		return request;
-	}
+    //private Context mContext;
 
-	private String addGetParams() throws Exception {
-		StringBuffer combinedParams = new StringBuffer();
-		if (!params.isEmpty()) {
-			combinedParams.append("?");
-			for (NameValuePair p : params) {
-				combinedParams.append((combinedParams.length() > 1 ? "&" : "")
-						+ p.getName() + "="
-						+ URLEncoder.encode(p.getValue(), "UTF-8"));
-			}
-		}
-		return combinedParams.toString();
-	}
+    /**
+     * @param url
+     *            The URL for the REST API
+     */
+    public RESTClient(final String url) {
+        mUrl = url;
+        mParams = new ArrayList<NameValuePair>();
+        mHeaders = new ArrayList<NameValuePair>();
+    }
 
-	public void addHeader(final String name, final String value) {
-		headers.add(new BasicNameValuePair(name, value));
-	}
 
-	private HttpUriRequest addHeaderParams(final HttpUriRequest request)
-			throws Exception {
-		for (NameValuePair h : headers) {
-			request.addHeader(h.getName(), h.getValue());
-		}
+    /**
+     * Adds the basic authentication. Be warned that this is sent in clear text,
+     * don't use Basic Authentication unless you have to.
+     *
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     */
+    public final void addBasicAuthentication(final String user,
+            final String pass) {
+        mAuthentication = true;
+        mUsername = user;
+        mPassword = pass;
+    }
 
-		if (authentication) {
+    /**
+     * Adds the body params.
+     *
+     * @param request
+     *            the request
+     * @return the HTTP URI request
+     * @throws Exception
+     *             the exception
+     */
+    private HttpUriRequest addBodyParams(final HttpUriRequest request)
+            throws Exception {
+        if (mJsonBody != null) {
+            request.addHeader("Content-Type", "application/json");
+            if (request instanceof HttpPost) {
+                ((HttpPost) request).setEntity(new StringEntity(mJsonBody,
+                        "UTF-8"));
+            } else if (request instanceof HttpPut) {
+                ((HttpPut) request).setEntity(new StringEntity(mJsonBody,
+                        "UTF-8"));
+            }
 
-			UsernamePasswordCredentials creds = new UsernamePasswordCredentials(
-					username, password);
-			request.addHeader(new BasicScheme().authenticate(creds, request));
-		}
+        } else if (!mParams.isEmpty()) {
+            if (request instanceof HttpPost) {
+                ((HttpPost) request).setEntity(new UrlEncodedFormEntity(mParams,
+                        HTTP.UTF_8));
+            } else if (request instanceof HttpPut) {
+                ((HttpPut) request).setEntity(new UrlEncodedFormEntity(mParams,
+                        HTTP.UTF_8));
+            }
+        }
+        return request;
+    }
 
-		return request;
-	}
+    /**
+     * Adds the get params.
+     *
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
+    private String addGetParams() throws Exception {
+        StringBuffer combinedParams = new StringBuffer();
+        if (!mParams.isEmpty()) {
+            combinedParams.append("?");
+            for (NameValuePair p : mParams) {
+                combinedParams.append((combinedParams.length() > 1 ? "&" : "")
+                        + p.getName() + "="
+                        + URLEncoder.encode(p.getValue(), "UTF-8"));
+            }
+        }
+        return combinedParams.toString();
+    }
 
-	public void addParam(final String name, final String value) {
-		params.add(new BasicNameValuePair(name, value));
-	}
+    /**
+     * Adds the header.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
+    public final void addHeader(final String name, final String value) {
+        mHeaders.add(new BasicNameValuePair(name, value));
+    }
 
-	public void execute(final RESTMethod method) throws Exception {
-		switch (method) {
-		case GET: {
-			HttpGet request = new HttpGet(url + addGetParams());
-			request = (HttpGet) addHeaderParams(request);
-			executeRequest(request, url);
-			break;
-		}
-		case POST: {
-			HttpPost request = new HttpPost(url);
-			request = (HttpPost) addHeaderParams(request);
-			request = (HttpPost) addBodyParams(request);
-			executeRequest(request, url);
-			break;
-		}
-		case PUT: {
-			HttpPut request = new HttpPut(url);
-			request = (HttpPut) addHeaderParams(request);
-			request = (HttpPut) addBodyParams(request);
-			executeRequest(request, url);
-			break;
-		}
-		case DELETE: {
-			HttpDelete request = new HttpDelete(url);
-			request = (HttpDelete) addHeaderParams(request);
-			executeRequest(request, url);
-		}
-		}
-	}
+    /**
+     * Adds the header params.
+     *
+     * @param request
+     *            the request
+     * @return the http uri request
+     * @throws Exception
+     *             the exception
+     */
+    private HttpUriRequest addHeaderParams(final HttpUriRequest request)
+            throws Exception {
+        for (NameValuePair h : mHeaders) {
+            request.addHeader(h.getName(), h.getValue());
+        }
 
-	private void executeRequest(final HttpUriRequest request, final String url) {
+        if (mAuthentication) {
 
-		DefaultHttpClient client = new DefaultHttpClient();
-		HttpParams params = client.getParams();
+            UsernamePasswordCredentials creds = new UsernamePasswordCredentials(
+                    mUsername, mPassword);
+            request.addHeader(new BasicScheme().authenticate(creds, request));
+        }
 
-		// http://developer.android.com/reference/org/apache/http/params/HttpConnectionParams.html
-		// **A timeout value of zero is interpreted as an infinite timeout.
-		// This value is used when no socket timeout is set in the method
-		// parameters.**
+        return request;
+    }
 
-		// BADSMELL Pollyannish Integration Point
-		HttpConnectionParams.setConnectionTimeout(params, 30 * 1000);
-		HttpConnectionParams.setSoTimeout(params, 30 * 1000);
+    /**
+     * Adds the param.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
+    public final void addParam(final String name, final String value) {
+        mParams.add(new BasicNameValuePair(name, value));
+    }
 
-		HttpResponse httpResponse;
+    /**
+     * Execute.
+     *
+     * @param method
+     *            the method
+     * @throws Exception
+     *             the exception
+     */
+    public final void execute(final RESTMethod method) throws Exception {
 
-		try {
-			httpResponse = client.execute(request);
-			responseCode = httpResponse.getStatusLine().getStatusCode();
-			message = httpResponse.getStatusLine().getReasonPhrase();
+        switch (method) {
+        case GET:
+            HttpGet getRequest = new HttpGet(mUrl + addGetParams());
+            getRequest = (HttpGet) addHeaderParams(getRequest);
+            executeRequest(getRequest, mUrl);
+            break;
+        case POST:
+            HttpPost postRequest = new HttpPost(mUrl);
+            postRequest = (HttpPost) addHeaderParams(postRequest);
+            postRequest = (HttpPost) addBodyParams(postRequest);
+            executeRequest(postRequest, mUrl);
+            break;
+        case PUT:
+            HttpPut putRequest = new HttpPut(mUrl);
+            putRequest = (HttpPut) addHeaderParams(putRequest);
+            putRequest = (HttpPut) addBodyParams(putRequest);
+            executeRequest(putRequest, mUrl);
+            break;
+        case DELETE:
+            HttpDelete deleteRequest = new HttpDelete(mUrl);
+            deleteRequest = (HttpDelete) addHeaderParams(deleteRequest);
+            executeRequest(deleteRequest, mUrl);
+        default:
+            break;
+        }
+    }
 
-			HttpEntity entity = httpResponse.getEntity();
+    /**
+     * Execute request.
+     *
+     * @param request
+     *            the request
+     * @param url
+     *            the url
+     */
+    private void executeRequest(final HttpUriRequest request,
+            final String url) {
 
-			if (entity != null) {
+        DefaultHttpClient client = new DefaultHttpClient();
+        HttpParams parameters = client.getParams();
 
-				InputStream instream = entity.getContent();
-				response = convertStreamToString(instream);
+        // http://developer.android.com/reference/org/apache/http/
+        // params/HttpConnectionParams.html
+        // **A timeout value of zero is interpreted as an infinite
+        // timeout.
+        // This value is used when no socket timeout is set in the
+        // method parameters.**
 
-				// Closing the input stream will trigger connection release
-				instream.close();
-			}
+        // BADSMELL Pollyannish Integration Point
+        HttpConnectionParams.setConnectionTimeout(parameters, THIRTY_SECONDS);
+        HttpConnectionParams.setSoTimeout(parameters, THIRTY_SECONDS);
 
-		} catch (ClientProtocolException e) {
-			client.getConnectionManager().shutdown();
-			e.printStackTrace();
-		} catch (IOException e) {
-			client.getConnectionManager().shutdown();
-			e.printStackTrace();
-		}
-	}
+        HttpResponse httpResponse;
 
-	public String getErrorMessage() {
-		return message;
-	}
+        try {
+            httpResponse = client.execute(request);
+            mResponseCode = httpResponse.getStatusLine().getStatusCode();
+            mMessage = httpResponse.getStatusLine().getReasonPhrase();
 
-	public String getResponse() {
-		return response;
-	}
+            HttpEntity entity = httpResponse.getEntity();
 
-	public int getResponseCode() {
-		return responseCode;
-	}
+            if (entity != null) {
 
-	public void setContext(final Context ctx) {
-		context = ctx;
-	}
+                InputStream instream = entity.getContent();
+                mResponse = convertStreamToString(instream);
 
-	public void setJSONString(final String data) {
-		jsonBody = data;
-	}
+                // Closing the input stream will trigger connection release
+                instream.close();
+            }
+
+        } catch (ClientProtocolException e) {
+            client.getConnectionManager().shutdown();
+            e.printStackTrace();
+        } catch (IOException e) {
+            client.getConnectionManager().shutdown();
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Gets the Error Message from the HTTP Transaction.
+     *
+     * @return the message
+     */
+    public final String getErrorMessage() {
+        return mMessage;
+    }
+
+    /**
+     * Gets the Response from the HTTP Transaction.
+     *
+     * @return the response
+     */
+    public final String getResponse() {
+        return mResponse;
+    }
+
+    /**
+     * Gets the Error Message from the HTTP Transaction.
+     *
+     * @return the calories
+     */
+
+    public final int getResponseCode() {
+        return mResponseCode;
+    }
+
+    /**
+     * Sets the Android Context.
+     *
+     * @param context
+     *            The android context.
+     */
+
+    //    public final void setContext(final Context context) {
+    //        mContext = context;
+    //    }
+
+    /**
+     * Gets the Error Message from the HTTP Transaction.
+     *
+     * @param data
+     *            the JSON String
+     */
+    public final void setJSONString(final String data) {
+        mJsonBody = data;
+    }
 }
