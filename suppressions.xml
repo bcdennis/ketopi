@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+
+
+    <!--
+      Turn off all checks for Generated and Test code. Fixes issues with using
+      Eclipse plug-in.
+      -->
+    <suppress checks="." files=".*[\\/]gen[\\/][a-zA-Z]*\.java"/>
+
+
+
+    <!-- Tone down the checking for test code -->
+    <suppress checks="EmptyBlock" files=".*[\\/]test[\\/][a-zA-Z]*\.java"/>
+    <suppress checks="ImportControl" files=".*[\\/]test[\\/][a-zA-Z]*\.java"/>
+    <suppress checks="Javadoc" files=".*[\\/]test[\\/][a-zA-Z]*\.java"/>
+    <suppress checks="MagicNumber" files=".*[\\/]test[\\/][a-zA-Z]*\.java"/>
+    <suppress checks="MethodCount" files=".*[\\/]test[\\/][a-zA-Z]*\.java"/>
+    <suppress checks="EqualsAvoidNull" files=".*[\\/]test[\\/][a-zA-Z]*\.java"/>
+    
+</suppressions>
+
+

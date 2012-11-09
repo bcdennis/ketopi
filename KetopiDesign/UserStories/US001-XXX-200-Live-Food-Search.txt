@@ -4,3 +4,5 @@ SO THAT I CAN: quickly see any near search hits.
 
 
 ESTIMATE: 10 hours
+
+NOTES:  11/05 Dropped.  Not really feasible on phone.  Wireframes updated.

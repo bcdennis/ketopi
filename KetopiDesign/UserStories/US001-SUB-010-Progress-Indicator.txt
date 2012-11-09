@@ -1,0 +1,8 @@
+AS A(N): searcher
+I WANT TO: see an indication that my search activity is being conducted
+SO THAT I CAN: be assured that my phone isn't frozen.
+
+
+ESTIMATE: 1 hours
+
+

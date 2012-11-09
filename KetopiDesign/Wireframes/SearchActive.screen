@@ -6,13 +6,8 @@
   <widgets xsi:type="model:Button" id="2" x="224" y="38" text="Go" measuredWidth="35" measuredHeight="25">
     <font/>
   </widgets>
-  <widgets xsi:type="model:List" id="4" x="46" y="62" width="179" text="Cheese, blue&#xA;Cheese, brick&#xA;|Cheese, brie&#xA;Cheese, camembert&#xA;Cheese, caraway&#xA;" measuredWidth="179" measuredHeight="109">
+  <widgets xsi:type="model:Table" id="6" x="46" y="62" width="209" text="Net Carbs, Food&#xA;1, Cheese\, blue\n 1 cup (100g)&#xA;2,Cheese\, brick\n 1 brick (95g)&#xA;|1,Cheese\, brie\n 1 oz crumbles (34g)&#xA;0,Cheese\, camembert\n 1 slize (23g)&#xA;1,Cheese\, caraway\n 1 cup \, diced (54g)&#xA;0,Cheese\,cheddar\n 1 oz \, shreeded (14g)&#xA;&#xA;" measuredWidth="209" measuredHeight="262" alternative="#eeeeee">
     <font/>
-    <items x="0" y="2" width="179" height="21" text="Cheese, blue"/>
-    <items x="0" y="23" width="179" height="21" text="Cheese, brick"/>
-    <items x="0" y="44" width="179" height="21" text="|Cheese, brie"/>
-    <items x="0" y="65" width="179" height="21" text="Cheese, camembert"/>
-    <items x="0" y="86" width="179" height="21" text="Cheese, caraway"/>
   </widgets>
   <hRuler/>
   <vRuler/>

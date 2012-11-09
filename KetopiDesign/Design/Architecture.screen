@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Group" id="21" y="8" width="476" height="407" text="Ketopi Android" measuredWidth="476" measuredHeight="407" alpha="64">
+    <font/>
+  </widgets>
   <widgets xsi:type="model:Rectangle" id="2" x="32" y="29" height="204" text="MainActivity" measuredWidth="84" measuredHeight="204">
     <font/>
   </widgets>
@@ -9,7 +12,7 @@
   <widgets xsi:type="model:Rectangle" id="5" x="96" y="152" width="80" text="ListView" measuredWidth="80" measuredHeight="62">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Rectangle" id="7" x="272" y="48" text="REST Content Provider" measuredWidth="142" measuredHeight="142">
+  <widgets xsi:type="model:Rectangle" id="7" x="272" y="48" width="153" height="146" text="Searcher" measuredWidth="153" measuredHeight="146">
     <font/>
   </widgets>
   <widgets xsi:type="model:Rectangle" id="8" x="192" y="288" width="129" height="105" text="FoodActivity" measuredWidth="129" measuredHeight="105">
@@ -31,13 +34,14 @@
   <widgets xsi:type="model:Label" id="17" x="328" y="232" text="Fetches Food Detail" measuredWidth="114" measuredHeight="23">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Circle" id="18" x="512" y="65" text="Ketopi REST" measuredWidth="84" measuredHeight="84">
+  <widgets xsi:type="model:Circle" id="18" x="512" y="65" text="WWW REST API" measuredWidth="101" measuredHeight="101">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Arrow" id="19" x="413" y="104" width="100" height="16" measuredWidth="100" measuredHeight="16" annotation="true" right="true" direction="bottom"/>
-  <widgets xsi:type="model:Group" id="21" y="8" width="476" height="407" text="Ketopi Android" measuredWidth="476" measuredHeight="407" alpha="64">
+  <widgets xsi:type="model:Arrow" id="19" x="424" y="104" width="89" height="16" measuredWidth="89" measuredHeight="16" annotation="true" right="true" direction="bottom"/>
+  <widgets xsi:type="model:Circle" id="22" x="516" y="189" text="SQLLite Cache" measuredWidth="94" measuredHeight="94">
     <font/>
   </widgets>
+  <widgets xsi:type="model:Arrow" id="23" x="428" y="153" width="89" height="61" measuredWidth="89" measuredHeight="61" annotation="true" right="true"/>
   <hRuler/>
   <vRuler/>
   <font size="12px"/>
