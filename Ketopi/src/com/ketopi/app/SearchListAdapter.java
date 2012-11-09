@@ -29,6 +29,7 @@ public class SearchListAdapter extends ArrayAdapter<Food> {
         // CHECKSTYLE.ON: Visibility
     }
 
+
     /** The Foods. */
     private final Food[] mFoods;
 

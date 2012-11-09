@@ -107,6 +107,11 @@
          in order to avoid having your file be overridden by tools such as "android update project"
 	-->
 
+	<path id="findbugs-jar" >
+
+		<pathelement path="${FINDBUGS_HOME}/lib/findbugs-ant.jar" />
+	</path>
+
 	<taskdef
 		name="findbugs"
 		classname="edu.umd.cs.findbugs.anttask.FindBugsTask" />

@@ -20,5 +20,8 @@ package com.ketopi.rest;
  * @author Brad Dennis. A simple enumeration of the REST Operations
  */
 public enum RESTMethod {
+    /**
+     * HTTP defined operations.
+     */
     DELETE, GET, POST, PUT
 }
