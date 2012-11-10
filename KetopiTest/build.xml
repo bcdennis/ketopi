@@ -258,9 +258,10 @@ Extracting coverage report...
 Cleaning up temporary files...
 				</echo>
 
-				<delete file="${out.absolute.dir}/coverage.ec" />
+				<!-- delete file="${out.absolute.dir}/coverage.ec" / -->
 
-				<delete file="${out.absolute.dir}/coverage.em" />
+
+				<!-- delete file="${out.absolute.dir}/coverage.em" / -->
 
 				<echo level="info" >
 Saving the report file in ${out.absolute.dir}/coverage.html and ${out.absolute.dir}/coverage.xml

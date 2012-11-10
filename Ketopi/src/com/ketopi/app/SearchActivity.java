@@ -78,10 +78,11 @@ public class SearchActivity extends Activity {
      */
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
 
         outState.putString("query", mSearcher.getQuery());
         outState.putString("results", mResults);
+
+        super.onSaveInstanceState(outState);
     }
 
 

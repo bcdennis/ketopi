@@ -149,7 +149,7 @@ public class RestClient {
      * Adds the body params.
      *
      * @param request the request
-     * @return the http uri request
+     * @return the HTTP URI request
      * @throws UnsupportedEncodingException
      *                  Thrown if an unrecognized encoding is encountered.
      */
