@@ -8,10 +8,10 @@ import android.widget.ListView;
 public class Searcher implements ISearchTaskCompleteListener<String, Food[]> {
 
     /** The Results view. */
-    private ListView mResultsView;
+    private final ListView mResultsView;
 
     /** The Parent activity. */
-    private SearchActivity mParentActivity;
+    private final SearchActivity mParentActivity;
 
     /** The Query. */
     private String mQuery = "";
@@ -49,7 +49,7 @@ public class Searcher implements ISearchTaskCompleteListener<String, Food[]> {
     public void onTaskComplete(final String query, final Food[] results) {
 
         mParentActivity.cacheSearchResults(results);
-        SearchListAdapter adapter = new SearchListAdapter(mParentActivity,
+        final SearchListAdapter adapter = new SearchListAdapter(mParentActivity,
                 results);
         mResultsView.setAdapter(adapter);
     }

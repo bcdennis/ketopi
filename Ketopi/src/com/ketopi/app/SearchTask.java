@@ -1,6 +1,8 @@
 package com.ketopi.app;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,14 +11,19 @@ import org.json.JSONObject;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
-import com.ketopi.rest.RESTClient;
-import com.ketopi.rest.RESTMethod;
+import com.ketopi.rest.RestClient;
+import com.ketopi.rest.RestException;
+import com.ketopi.rest.RestMethod;
 
 /**
  * The Class SearchTask.
  */
 public class SearchTask extends AsyncTask<String, Void, String> {
+
+    /** The LogCat Tag. */
+    private static final String TAG = "Ketopi";
 
     /** The Constant HTTP_OK. */
     private static final int HTTP_OK = 200;
@@ -40,10 +47,13 @@ public class SearchTask extends AsyncTask<String, Void, String> {
     private static final String SEARCHMALFORMED = "search_malformed.json?query=";
 
     /** The Callback. */
-    private ISearchTaskCompleteListener<String, Food[]> mCallback;
+    private final ISearchTaskCompleteListener<String, Food[]> mCallback;
+
 
     /** The Progress. */
-    private ProgressDialog mProgress;
+    private final ProgressDialog mProgress;
+
+    private final List<Exception> mExceptionsBag = new ArrayList<Exception>();
 
     /**
      * Instantiates a new search task.
@@ -53,6 +63,7 @@ public class SearchTask extends AsyncTask<String, Void, String> {
      */
     public SearchTask(final Context context,
             final ISearchTaskCompleteListener<String, Food[]> listener) {
+        super();
 
         mProgress = new ProgressDialog(context, R.style.BusyWaitDialog);
         mProgress.setMessage(context.getString(R.string.searchDialog_text));
@@ -66,32 +77,32 @@ public class SearchTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(final String... args) {
 
-        String query = args[0];
-        String result = "";
+        final String origQuery = args[0];
+        String searchResult = ""; // NOPMD by brad on 11/9/12 12:50 PM
 
-        RESTClient client = new RESTClient(API + SEARCH
-                + URLEncoder.encode(query));
+        final RestClient client = new RestClient(API + SEARCH
+                + URLEncoder.encode(origQuery));
 
-        // client = new RESTClient(API_TEST + SEARCH_LR +
+        // final RESTClient client = new RESTClient(API_TEST + SEARCH_LR +
         // URLEncoder.encode(query));
 
-        // client = new RESTClient(API_TEST + SEARCH_MF +
+        // final RESTClient client = new RESTClient(API_TEST + SEARCH_MF +
         // URLEncoder.encode(query));
 
         try {
-            client.execute(RESTMethod.GET);
+            client.execute(RestMethod.GET);
             if (client.getResponseCode() != HTTP_OK) {
-                // return server error
-                return client.getErrorMessage();
+
+                mExceptionsBag.add(new RestException(client.getErrorMessage()));
             }
             // return valid data
-            result = client.getResponse();
+            searchResult = client.getResponse();
 
         } catch (Exception e) {
-            return e.toString();
+            mExceptionsBag.add(e);
         }
 
-        return result;
+        return searchResult;
     }
 
     /* (non-Javadoc)
@@ -100,29 +111,26 @@ public class SearchTask extends AsyncTask<String, Void, String> {
     @Override
     protected final void onPostExecute(final String responseString) {
 
-        String query = "";
-        Food[] results = null;
-        String str = responseString.trim() + "}";
+        final String str = responseString.trim() + "}";
 
         try {
-            JSONObject response = new JSONObject(str);
-            query = response.getString("query");
-            JSONArray json = response.getJSONArray("results");
-            results = new Food[json.length()];
+            final JSONObject response = new JSONObject(str);
+            final String query = response.getString("query");
+            final JSONArray json = response.getJSONArray("results");
+            final List<Food> items = new ArrayList<Food>();
 
             for (int i = 0; i < json.length(); ++i) {
-                results[i] = new Food(json.getJSONObject(i));
+                items.add(Food.fromJSON(json.getJSONObject(i)));
             }
 
+            mCallback.onTaskComplete(query, items.toArray(new Food[]{}));
+
         } catch (JSONException e) {
-            // BADSMELL Auto-generated catch block
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
+        } finally {
+
+            mProgress.dismiss();
         }
-
-        mProgress.dismiss();
-
-        mCallback.onTaskComplete(query, results);
     }
 
     /* (non-Javadoc)

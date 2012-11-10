@@ -19,7 +19,7 @@ package com.ketopi.rest;
 /**
  * @author Brad Dennis. A simple enumeration of the REST Operations
  */
-public enum RESTMethod {
+public enum RestMethod {
     /**
      * HTTP defined operations.
      */

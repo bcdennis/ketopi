@@ -21,11 +21,8 @@ public class SearchActivity extends Activity {
     /** The Search text. */
     private EditText mSearchText;
 
-    /** The Search results list. */
-    private ListView mSearchResultsList;
-
     /** The Serialized results. */
-    private String mSerializedResults;
+    private String mResults;
 
 
     /**
@@ -34,8 +31,8 @@ public class SearchActivity extends Activity {
      * @param results the results
      */
     public void cacheSearchResults(final Food[] results) {
-        Gson gson = new Gson();
-        mSerializedResults = gson.toJson(results);
+        final Gson gson = new Gson();
+        mResults = gson.toJson(results);
     }
 
 
@@ -43,26 +40,26 @@ public class SearchActivity extends Activity {
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(final Bundle bundle) {
+        super.onCreate(bundle);
         setContentView(R.layout.activity_search);
 
         mSearchText = (EditText) findViewById(R.id.searchText);
-        mSearchResultsList = (ListView) findViewById(R.id.searchList);
+        final ListView resultsList = (ListView) findViewById(R.id.searchList);
 
-        mSearcher = new Searcher(this, mSearchResultsList);
+        mSearcher = new Searcher(this, resultsList);
 
         // BADSMELL Optimistic Resume
-        if (savedInstanceState != null) {
-            String queryString = savedInstanceState.getString("query");
-            String results = savedInstanceState.getString("results");
-            Gson gson = new Gson();
-            Food[] foods = gson.fromJson(results, Food[].class);
+        if (bundle != null) {
+            final String queryString = bundle.getString("query");
+            final String results = bundle.getString("results");
+            final Gson gson = new Gson();
+            final Food[] foods = gson.fromJson(results, Food[].class);
 
             mSearchText.setText(queryString);
 
-            SearchListAdapter adapter = new SearchListAdapter(this, foods);
-            mSearchResultsList.setAdapter(adapter);
+            final SearchListAdapter adapter = new SearchListAdapter(this, foods);
+            resultsList.setAdapter(adapter);
         }
 
     }
@@ -84,7 +81,7 @@ public class SearchActivity extends Activity {
         super.onSaveInstanceState(outState);
 
         outState.putString("query", mSearcher.getQuery());
-        outState.putString("results", mSerializedResults);
+        outState.putString("results", mResults);
     }
 
 
@@ -94,10 +91,6 @@ public class SearchActivity extends Activity {
      * @param arg0 the arg0
      */
     public void searchButtonOnClick(final View arg0) {
-        String queryString = mSearchText.getText().toString();
-
-        mSearcher.query(queryString);
-
+        mSearcher.query(mSearchText.getText().toString());
     }
-
 }

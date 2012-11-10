@@ -7,93 +7,55 @@ import org.json.JSONObject;
  */
 public class Food {
 
+    /**
+     * Factory method for JSON-Object conversion.
+     *
+     * @param json      the JSON object initializer.
+     * @return food     the FOOD object.
+     */
+    public static Food fromJSON(final JSONObject json) {
+        return new Food(json);
+    }
+
     /** The Id. */
-    private String mId              = "";
+    private String mId = "";
 
     /** The Ndb no. */
-    private String mNdbNo           = "";
+    private String mNdbNo = "";
 
     /** The Description. */
-    private String mDescription     = "";
+    private String mDescription = "";
 
     /** The Amount. */
-    private String mAmount          = "";
+    private String mAmount = "";
 
     /** The Measure. */
-    private String mMeasure         = "";
+    private String mMeasure = "";
 
     /** The Grams. */
-    private String mGrams           = "";
+    private String mGrams = "";
 
     /* Macros */
     /** The Calories. */
-    private String mCalories        = "";
+    private String mCalories = "";
 
     /** The Protein. */
-    private String mProtein         = "";
+    private String mProtein = "";
 
     /** The Fat. */
-    private String mFat             = "";
+    private String mFat = "";
 
     /** The Carbs. */
-    private String mCarbs           = "";
+    private String mCarbs = "";
 
     /** The Fiber. */
-    private String mFiber           = "";
+    private String mFiber = "";
 
     /** The Sugars. */
-    private String mSugars          = "";
+    private String mSugars = "";
 
     /** The Net carbs. */
-    private String mNetCarbs        = "";
-
-    /* Fats */
-    /** The Mono unsaturated. */
-    private String mMonoUnsaturated = "";
-
-    /** The Poly unsaturated. */
-    private String mPolyUnsaturated = "";
-
-    /** The Trans fat. */
-    private String mTransFat        = "";
-
-    /* Carbs */
-    /** The Sucrose. */
-    private String mSucrose         = "";
-
-    /** The Fructose. */
-    private String mFructose        = "";
-
-    /** The Lactose. */
-    private String mLactose         = "";
-
-    /** The Maltose. */
-    private String mMaltose         = "";
-
-    /** The Galactose. */
-    private String mGalactose       = "";
-
-    /** The Starch. */
-    private String mStarch          = "";
-
-    /* Electrolytes */
-    /** The Calcium. */
-    private String mCalcium         = "";
-
-    /** The Magnesium. */
-    private String mMagnesium       = "";
-
-    /** The Potassium. */
-    private String mPotassium       = "";
-
-    /** The Sodium. */
-    private String mSodium          = "";
-
-    /**
-     * Instantiates a new food.
-     */
-    public Food() {
-    }
+    private String mNetCarbs = "";
 
     /*
      * {"ndb_no":"21473", "long_desc":
@@ -105,16 +67,24 @@ public class Food {
 
     /**
      * Instantiates a new food.
+     */
+    public Food() {
+        //Empty constructor.
+    }
+
+    /**
+     * Instantiates a new food.
      *
      * @param jsonObject the json object
      */
     public Food(final JSONObject jsonObject) {
 
         mId = jsonObject.optString("id");
-        mNdbNo = jsonObject.optString("ndb_no");
+        setNdbNo(jsonObject.optString("ndb_no"));
         setDescription(jsonObject.optString("long_desc"));
         setAmount(jsonObject.optString("amount"));
         setMeasure(jsonObject.optString("measure"));
+        setGrams(jsonObject.optString("grams"));
         setCarbs(jsonObject.optString("carbs"));
         setNetCarbs(jsonObject.optString("net_carbs"));
         setCalories(jsonObject.optString("calories"));
@@ -127,7 +97,6 @@ public class Food {
 
     /**
      * Gets the amount.
-     * jAutodoc
      *
      * @return the amount
      */
@@ -136,18 +105,7 @@ public class Food {
     }
 
     /**
-     * Gets the calcium.
-     * jAutodoc
-     *
-     * @return the calcium
-     */
-    public final String getCalcium() {
-        return mCalcium;
-    }
-
-    /**
      * Gets the calories.
-     * jAutodoc
      *
      * @return the calories
      */
@@ -157,7 +115,6 @@ public class Food {
 
     /**
      * Gets the carbs.
-     * jAutodoc
      *
      * @return the carbs
      */
@@ -167,7 +124,6 @@ public class Food {
 
     /**
      * Gets the description.
-     * jAutodoc
      *
      * @return the description
      */
@@ -177,7 +133,6 @@ public class Food {
 
     /**
      * Gets the fat.
-     * jAutodoc
      *
      * @return the fat
      */
@@ -187,7 +142,6 @@ public class Food {
 
     /**
      * Gets the fiber.
-     * jAutodoc
      *
      * @return the fiber
      */
@@ -196,28 +150,7 @@ public class Food {
     }
 
     /**
-     * Gets the fructose.
-     * jAutodoc
-     *
-     * @return the fructose
-     */
-    public final String getFructose() {
-        return mFructose;
-    }
-
-    /**
-     * Gets the galactose.
-     * jAutodoc
-     *
-     * @return the galactose
-     */
-    public final String getGalactose() {
-        return mGalactose;
-    }
-
-    /**
      * Gets the grams.
-     * jAutodoc
      *
      * @return the grams
      */
@@ -227,40 +160,11 @@ public class Food {
 
     /**
      * Gets the id.
-     * jAutodoc
      *
      * @return the id
      */
     public final String getID() {
         return mId;
-    }
-
-    /**
-     * Gets the lactose.
-     * jAutodoc
-     *
-     * @return the lactose
-     */
-    public final String getLactose() {
-        return mLactose;
-    }
-
-    /**
-     * Gets the magnesium.
-     *
-     * @return the magnesium
-     */
-    public final String getMagnesium() {
-        return mMagnesium;
-    }
-
-    /**
-     * Gets the maltose.
-     *
-     * @return the maltose
-     */
-    public final String getMaltose() {
-        return mMaltose;
     }
 
     /**
@@ -273,18 +177,9 @@ public class Food {
     }
 
     /**
-     * Gets the mono unsaturated.
+     * Gets the Nutrition Database Number.
      *
-     * @return the mono unsaturated
-     */
-    public final String getMonoUnsaturated() {
-        return mMonoUnsaturated;
-    }
-
-    /**
-     * Gets the ndb no.
-     *
-     * @return the ndb no
+     * @return the Nutrition Database Number
      */
     public final String getNdbNo() {
         return mNdbNo;
@@ -297,24 +192,6 @@ public class Food {
      */
     public final String getNetCarbs() {
         return mNetCarbs;
-    }
-
-    /**
-     * Gets the poly unsaturated.
-     *
-     * @return the poly unsaturated
-     */
-    public final String getPolyUnsaturated() {
-        return mPolyUnsaturated;
-    }
-
-    /**
-     * Gets the potassium.
-     *
-     * @return the potassium
-     */
-    public final String getPotassium() {
-        return mPotassium;
     }
 
     /**
@@ -335,40 +212,8 @@ public class Food {
         return getAmount() + " " + getMeasure();
     }
 
-
-
-    /**
-     * Gets the sodium.
-     *
-     * @return the sodium
-     */
-    public final String getSodium() {
-        return mSodium;
-    }
-
-    /**
-     * Gets the starch.
-     * jAutodoc
-     *
-     * @return the starch
-     */
-    public final String getStarch() {
-        return mStarch;
-    }
-
-    /**
-     * Gets the sucrose.
-     * jAutodoc
-     *
-     * @return the sucrose
-     */
-    public final String getSucrose() {
-        return mSucrose;
-    }
-
     /**
      * Gets the sugars.
-     * jAutodoc
      *
      * @return the sugars
      */
@@ -377,238 +222,86 @@ public class Food {
     }
 
     /**
-     * Gets the trans fat.
-     * jAutodoc
-     *
-     * @return the trans fat
+     * @param amount the amount to set
      */
-    public final String getTransFat() {
-        return mTransFat;
-    }
-
-    /**
-     * Sets the amount.
-     *
-     * @param amount the new amount
-     */
-    public final void setAmount(final String amount) {
+    private void setAmount(final String amount) {
         mAmount = amount;
     }
 
     /**
-     * Sets the calcium.
-     *
-     * @param calcium the new calcium
+     * @param calories the calories to set
      */
-    public final void setCalcium(final String calcium) {
-        mCalcium = calcium;
-    }
-
-    /**
-     * Sets the calories.
-     *
-     * @param calories the new calories
-     */
-    public final void setCalories(final String calories) {
+    private void setCalories(final String calories) {
         mCalories = calories;
     }
 
     /**
-     * Sets the carbs.
-     *
-     * @param carbs the new carbs
+     * @param carbs the carbs to set
      */
-    public final void setCarbs(final String carbs) {
+    private void setCarbs(final String carbs) {
         mCarbs = carbs;
     }
 
     /**
-     * Sets the description.
-     *
-     * @param description the new description
+     * @param description the description to set
      */
-    public final void setDescription(final String description) {
+    private void setDescription(final String description) {
         mDescription = description;
     }
 
     /**
-     * Sets the fat.
-     *
-     * @param fat the new fat
+     * @param fat the fat to set
      */
-    public final void setFat(final String fat) {
+    private void setFat(final String fat) {
         mFat = fat;
     }
 
     /**
-     * Sets the fiber.
-     *
-     * @param fiber the new fiber
+     * @param fiber the fiber to set
      */
-    public final void setFiber(final String fiber) {
+    private void setFiber(final String fiber) {
         mFiber = fiber;
     }
 
     /**
-     * Sets the fructose.
-     *
-     * @param fructose the new fructose
+     * @param grams the grams to set
      */
-    public final void setFructose(final String fructose) {
-        mFructose = fructose;
+    private void setGrams(final String grams) {
+        mGrams = grams;
     }
 
     /**
-     * Sets the galactose.
-     *
-     * @param galactose the new galactose
+     * @param measure the measure to set
      */
-    public final void setGalactose(final String galactose) {
-        mGalactose = galactose;
-    }
-
-    /**
-     * Sets the id.
-     *
-     * @param id the new id
-     */
-    public final void setID(final String id) {
-        this.mId = id;
-    }
-
-    /**
-     * Sets the lactose.
-     *
-     * @param lactose the new lactose
-     */
-    public final void setLactose(final String lactose) {
-        mLactose = lactose;
-    }
-
-    /**
-     * Sets the magnesium.
-     *
-     * @param magnesium the new magnesium
-     */
-    public final void setMagnesium(final String magnesium) {
-        mMagnesium = magnesium;
-    }
-
-    /**
-     * Sets the maltose.
-     *
-     * @param maltose the new maltose
-     */
-    public final void setMaltose(final String maltose) {
-        mMaltose = maltose;
-    }
-
-    /**
-     * Sets the measure.
-     *
-     * @param measure the new measure
-     */
-    public final void setMeasure(final String measure) {
+    private void setMeasure(final String measure) {
         mMeasure = measure;
     }
 
     /**
-     * Sets the mono unsaturated.
-     *
-     * @param monoUnsaturated the new mono unsaturated
+     * @param ndbNo the ndbNo to set
      */
-    public final void setMonoUnsaturated(final String monoUnsaturated) {
-        mMonoUnsaturated = monoUnsaturated;
+    private void setNdbNo(final String ndbNo) {
+        mNdbNo = ndbNo;
     }
 
     /**
-     * Sets the ndb no.
-     *
-     * @param ndbno the new ndb no
+     * @param netCarbs the netCarbs to set
      */
-    public final void setNdbNo(final String ndbno) {
-        mNdbNo = ndbno;
-    }
-
-    /**
-     * Sets the net carbs.
-     *
-     * @param netCarbs the new net carbs
-     */
-    public final void setNetCarbs(final String netCarbs) {
+    private void setNetCarbs(final String netCarbs) {
         mNetCarbs = netCarbs;
     }
 
     /**
-     * Sets the poly unsaturated.
-     *
-     * @param polyUnsaturated the new poly unsaturated
+     * @param protein the protein to set
      */
-    public final void setPolyUnsaturated(final String polyUnsaturated) {
-        mPolyUnsaturated = polyUnsaturated;
-    }
-
-    /**
-     * Sets the potassium.
-     *
-     * @param potassium the new potassium
-     */
-    public final void setPotassium(final String potassium) {
-        mPotassium = potassium;
-    }
-
-    /**
-     * Sets the protein.
-     *
-     * @param protein the new protein
-     */
-    public final void setProtein(final String protein) {
+    private void setProtein(final String protein) {
         mProtein = protein;
     }
 
     /**
-     * Sets the sodium.
-     *
-     * @param sodium the new sodium
+     * @param sugars the sugars to set
      */
-    public final void setSodium(final String sodium) {
-        mSodium = sodium;
-    }
-
-    /**
-     * Sets the starch.
-     *
-     * @param starch the new starch
-     */
-    public final void setStarch(final String starch) {
-        mStarch = starch;
-    }
-
-    /**
-     * Sets the sucrose.
-     *
-     * @param sucrose the new sucrose
-     */
-    public final void setSucrose(final String sucrose) {
-        mSucrose = sucrose;
-    }
-
-    /**
-     * Sets the sugars.
-     *
-     * @param sugars the new sugars
-     */
-    public final void setSugars(final String sugars) {
+    private void setSugars(final String sugars) {
         mSugars = sugars;
     }
-
-    /**
-     * Sets the trans fat.
-     *
-     * @param transFat the new trans fat
-     */
-    public final void setTransFat(final String transFat) {
-        mTransFat = transFat;
-    }
-
 }

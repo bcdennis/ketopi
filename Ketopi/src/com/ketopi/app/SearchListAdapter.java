@@ -46,7 +46,7 @@ public class SearchListAdapter extends ArrayAdapter<Food> {
         super(context, R.layout.search_list_item, foods);
 
         mContext = context;
-        mFoods = foods;
+        mFoods = foods.clone();
     }
 
     /* (non-Javadoc)
@@ -56,10 +56,10 @@ public class SearchListAdapter extends ArrayAdapter<Food> {
     public View getView(final int position, final View convertView, final ViewGroup parent) {
         View rowView = convertView;
         if (rowView == null) {
-            LayoutInflater inflater = mContext.getLayoutInflater();
+            final LayoutInflater inflater = mContext.getLayoutInflater();
             rowView = inflater.inflate(R.layout.search_list_item, null);
 
-            ViewHolder viewHolder = new ViewHolder();
+            final ViewHolder viewHolder = new ViewHolder();
             viewHolder.foodDescription = (TextView) rowView
                     .findViewById(R.id.foodDescription);
             viewHolder.foodServing = (TextView) rowView
@@ -69,8 +69,8 @@ public class SearchListAdapter extends ArrayAdapter<Food> {
             rowView.setTag(viewHolder);
         }
 
-        ViewHolder holder = (ViewHolder) rowView.getTag();
-        Food item = mFoods[position];
+        final ViewHolder holder = (ViewHolder) rowView.getTag();
+        final Food item = mFoods[position];
 
         holder.foodDescription.setText(item.getDescription());
         holder.foodServing.setText(item.getServing());
