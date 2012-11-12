@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ketopi</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_search">Ketopi - Simple Food Search</string>
-    <string name="searchButton_text">Go</string>
-    <string name="searchText_text">Cheese</string>
-    <string name="searchText_hint">Search our food database &#8230;</string>
-    <string name="searchDialog_text">Searching &#8230;</string>
-    <string name="foodNetCarbs_text">12</string>
-    <string name="foodDescription_text">Default Food Description</string>
-    <string name="foodServing_text">Default Food Serving</string>
-    
+
+	<string name="app_name">Ketopi</string>
+	<string name="menu_settings">Settings</string>
+	<string name="title_activity_search">Ketopi - Simple Food Search</string>
+	<string name="searchButton_text">Go</string>
+	<string name="searchText_text"></string>
+	<string name="searchText_hint">Search our database&#8230;</string>
+	<string name="searchDialog_text">Searching &#8230;</string>
+	<string name="foodNetCarbs_text">12</string>
+	<string name="foodDescription_text">Default Food Description</string>
+	<string name="foodServing_text">Default Food Serving</string>
+
 </resources>

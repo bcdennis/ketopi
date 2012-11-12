@@ -1,36 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<BugCollection version="2.0.1" sequence="0" timestamp="1352474735664" analysisTimestamp="1352474735684" release="">
+<BugCollection version="2.0.1" sequence="0" timestamp="1352557974194" analysisTimestamp="1352557974206" release="">
   <Project projectName="">
     <Jar>/home/brad/Repos/KetopiRepo/Ketopi/bin</Jar>
     <AuxClasspathEntry>/home/brad/Repos/KetopiRepo/Ketopi/${android.jar}</AuxClasspathEntry>
   </Project>
-  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE">
-    <Class classname="com.ketopi.app.SearchListAdapter">
-      <SourceLine classname="com.ketopi.app.SearchListAdapter" start="46" end="79" sourcefile="SearchListAdapter.java" sourcepath="com/ketopi/app/SearchListAdapter.java"/>
-    </Class>
-    <Method classname="com.ketopi.app.SearchListAdapter" name="&lt;init&gt;" signature="(Landroid/app/Activity;[Lcom/ketopi/app/Food;)V" isStatic="false">
-      <SourceLine classname="com.ketopi.app.SearchListAdapter" start="46" end="50" startBytecode="0" endBytecode="92" sourcefile="SearchListAdapter.java" sourcepath="com/ketopi/app/SearchListAdapter.java"/>
-    </Method>
-    <Field classname="com.ketopi.app.SearchListAdapter" name="mFoods" signature="[Lcom/ketopi/app/Food;" isStatic="false">
-      <SourceLine classname="com.ketopi.app.SearchListAdapter" sourcefile="SearchListAdapter.java" sourcepath="com/ketopi/app/SearchListAdapter.java"/>
-    </Field>
-    <LocalVariable name="foods" register="2" pc="15" role="LOCAL_VARIABLE_NAMED"/>
-    <SourceLine classname="com.ketopi.app.SearchListAdapter" start="49" end="49" startBytecode="15" endBytecode="15" sourcefile="SearchListAdapter.java" sourcepath="com/ketopi/app/SearchListAdapter.java"/>
-  </BugInstance>
   <BugInstance type="DM_DEFAULT_ENCODING" priority="1" abbrev="Dm" category="I18N">
-    <Class classname="com.ketopi.rest.RESTClient">
-      <SourceLine classname="com.ketopi.rest.RESTClient" start="62" end="384" sourcefile="RESTClient.java" sourcepath="com/ketopi/rest/RESTClient.java"/>
+    <Class classname="com.ketopi.rest.RestClient">
+      <SourceLine classname="com.ketopi.rest.RestClient" start="68" end="371" sourcefile="RestClient.java" sourcepath="com/ketopi/rest/RestClient.java"/>
     </Class>
-    <Method classname="com.ketopi.rest.RESTClient" name="convertStreamToString" signature="(Ljava/io/InputStream;)Ljava/lang/String;" isStatic="true">
-      <SourceLine classname="com.ketopi.rest.RESTClient" start="62" end="79" startBytecode="0" endBytecode="386" sourcefile="RESTClient.java" sourcepath="com/ketopi/rest/RESTClient.java"/>
+    <Method classname="com.ketopi.rest.RestClient" name="convertStreamToString" signature="(Ljava/io/InputStream;)Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="com.ketopi.rest.RestClient" start="68" end="87" startBytecode="0" endBytecode="411" sourcefile="RestClient.java" sourcepath="com/ketopi/rest/RestClient.java"/>
     </Method>
     <Method classname="java.io.InputStreamReader" name="&lt;init&gt;" signature="(Ljava/io/InputStream;)V" isStatic="false" role="METHOD_CALLED">
-      <SourceLine classname="java.io.InputStreamReader" start="72" end="79" startBytecode="0" endBytecode="108" sourcefile="InputStreamReader.java" sourcepath="java/io/InputStreamReader.java"/>
+      <SourceLine classname="java.io.InputStreamReader" start="72" end="79" startBytecode="0" endBytecode="121" sourcefile="InputStreamReader.java" sourcepath="java/io/InputStreamReader.java"/>
     </Method>
-    <SourceLine classname="com.ketopi.rest.RESTClient" start="62" end="62" startBytecode="9" endBytecode="9" sourcefile="RESTClient.java" sourcepath="com/ketopi/rest/RESTClient.java"/>
+    <SourceLine classname="com.ketopi.rest.RestClient" start="68" end="68" startBytecode="9" endBytecode="9" sourcefile="RestClient.java" sourcepath="com/ketopi/rest/RestClient.java"/>
   </BugInstance>
-  <Errors errors="1" missingClasses="42">
+  <Errors errors="1" missingClasses="44">
     <Error>
       <ErrorMessage>Cannot open codebase filesystem:/home/brad/Repos/KetopiRepo/Ketopi/${android.jar}</ErrorMessage>
       <Exception>java.io.FileNotFoundException: File /home/brad/Repos/KetopiRepo/Ketopi/${android.jar} doesn&apos;t exist</Exception>
@@ -49,6 +36,7 @@
     <MissingClass>android.os.AsyncTask</MissingClass>
     <MissingClass>android.os.Bundle</MissingClass>
     <MissingClass>android.text.Editable</MissingClass>
+    <MissingClass>android.util.Log</MissingClass>
     <MissingClass>android.view.LayoutInflater</MissingClass>
     <MissingClass>android.view.Menu</MissingClass>
     <MissingClass>android.view.MenuInflater</MissingClass>
@@ -66,6 +54,7 @@
     <MissingClass>org.apache.http.HttpResponse</MissingClass>
     <MissingClass>org.apache.http.NameValuePair</MissingClass>
     <MissingClass>org.apache.http.StatusLine</MissingClass>
+    <MissingClass>org.apache.http.auth.AuthenticationException</MissingClass>
     <MissingClass>org.apache.http.auth.Credentials</MissingClass>
     <MissingClass>org.apache.http.auth.UsernamePasswordCredentials</MissingClass>
     <MissingClass>org.apache.http.client.ClientProtocolException</MissingClass>
@@ -86,10 +75,10 @@
     <MissingClass>org.json.JSONException</MissingClass>
     <MissingClass>org.json.JSONObject</MissingClass>
   </Errors>
-  <FindBugsSummary timestamp="Fri, 9 Nov 2012 09:25:35 -0600" total_classes="22" referenced_classes="53" total_bugs="2" total_size="545" num_packages="2" vm_version="23.5-b02" cpu_seconds="14.55" clock_seconds="5.01" peak_mbytes="90.92" alloc_mbytes="910.25" gc_seconds="0.03" priority_2="1" priority_1="1">
-    <PackageStats package="com.ketopi.app" total_bugs="1" total_types="18" total_size="405" priority_2="1">
+  <FindBugsSummary timestamp="Sat, 10 Nov 2012 08:32:54 -0600" total_classes="23" referenced_classes="61" total_bugs="1" total_size="455" num_packages="2" vm_version="20.0-b12" cpu_seconds="17.56" clock_seconds="5.82" peak_mbytes="55.78" alloc_mbytes="910.25" gc_seconds="0.05" priority_1="1">
+    <PackageStats package="com.ketopi.app" total_bugs="0" total_types="18" total_size="316">
       <ClassStats class="com.ketopi.app.BuildConfig" sourceFile="BuildConfig.java" interface="false" size="4" bugs="0"/>
-      <ClassStats class="com.ketopi.app.Food" sourceFile="Food.java" interface="false" size="200" bugs="0"/>
+      <ClassStats class="com.ketopi.app.Food" sourceFile="Food.java" interface="false" size="112" bugs="0"/>
       <ClassStats class="com.ketopi.app.ISearchTaskCompleteListener" sourceFile="ISearchTaskCompleteListener.java" interface="true" size="2" bugs="0"/>
       <ClassStats class="com.ketopi.app.R" sourceFile="R.java" interface="false" size="4" bugs="0"/>
       <ClassStats class="com.ketopi.app.R$attr" sourceFile="R.java" interface="false" size="3" bugs="0"/>
@@ -100,45 +89,45 @@
       <ClassStats class="com.ketopi.app.R$raw" sourceFile="R.java" interface="false" size="4" bugs="0"/>
       <ClassStats class="com.ketopi.app.R$string" sourceFile="R.java" interface="false" size="13" bugs="0"/>
       <ClassStats class="com.ketopi.app.R$style" sourceFile="R.java" interface="false" size="4" bugs="0"/>
-      <ClassStats class="com.ketopi.app.SearchActivity" sourceFile="SearchActivity.java" interface="false" size="38" bugs="0"/>
-      <ClassStats class="com.ketopi.app.SearchListAdapter" sourceFile="SearchListAdapter.java" interface="false" size="24" bugs="1" priority_2="1"/>
+      <ClassStats class="com.ketopi.app.SearchActivity" sourceFile="SearchActivity.java" interface="false" size="36" bugs="0"/>
+      <ClassStats class="com.ketopi.app.SearchListAdapter" sourceFile="SearchListAdapter.java" interface="false" size="24" bugs="0"/>
       <ClassStats class="com.ketopi.app.SearchListAdapter$ViewHolder" sourceFile="SearchListAdapter.java" interface="false" size="6" bugs="0"/>
-      <ClassStats class="com.ketopi.app.SearchTask" sourceFile="SearchTask.java" interface="false" size="51" bugs="0"/>
+      <ClassStats class="com.ketopi.app.SearchTask" sourceFile="SearchTask.java" interface="false" size="52" bugs="0"/>
       <ClassStats class="com.ketopi.app.Searcher" sourceFile="Searcher.java" interface="false" size="23" bugs="0"/>
       <ClassStats class="com.ketopi.app.package-info" sourceFile="package-info.java" interface="true" size="1" bugs="0"/>
     </PackageStats>
-    <PackageStats package="com.ketopi.rest" total_bugs="1" total_types="4" total_size="140" priority_1="1">
-      <ClassStats class="com.ketopi.rest.RESTClient" sourceFile="RESTClient.java" interface="false" size="123" bugs="1" priority_1="1"/>
-      <ClassStats class="com.ketopi.rest.RESTClient$1" sourceFile="RESTClient.java" interface="false" size="4" bugs="0"/>
-      <ClassStats class="com.ketopi.rest.RESTMethod" sourceFile="RESTMethod.java" interface="false" size="12" bugs="0"/>
+    <PackageStats package="com.ketopi.rest" total_bugs="1" total_types="5" total_size="139" priority_1="1">
+      <ClassStats class="com.ketopi.rest.RestClient" sourceFile="RestClient.java" interface="false" size="117" bugs="1" priority_1="1"/>
+      <ClassStats class="com.ketopi.rest.RestClient$1" sourceFile="RestClient.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="com.ketopi.rest.RestException" sourceFile="RestException.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.ketopi.rest.RestMethod" sourceFile="RestMethod.java" interface="false" size="12" bugs="0"/>
       <ClassStats class="com.ketopi.rest.package-info" sourceFile="package-info.java" interface="true" size="1" bugs="0"/>
     </PackageStats>
     <FindBugsProfile>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="493" invocations="377" avgMicrosecondsPerInvocation="1309" maxMicrosecondsPerInvocation="24191" standardDeviationMircosecondsPerInvocation="2694"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="257" invocations="53" avgMicrosecondsPerInvocation="4867" maxMicrosecondsPerInvocation="71508" standardDeviationMircosecondsPerInvocation="11490"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.ExplicitSerialization" totalMilliseconds="219" invocations="53" avgMicrosecondsPerInvocation="4145" maxMicrosecondsPerInvocation="66522" standardDeviationMircosecondsPerInvocation="10409"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="178" invocations="103" avgMicrosecondsPerInvocation="1733" maxMicrosecondsPerInvocation="23992" standardDeviationMircosecondsPerInvocation="3803"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="177" invocations="105" avgMicrosecondsPerInvocation="1692" maxMicrosecondsPerInvocation="19483" standardDeviationMircosecondsPerInvocation="3814"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="164" invocations="53" avgMicrosecondsPerInvocation="3105" maxMicrosecondsPerInvocation="39405" standardDeviationMircosecondsPerInvocation="6584"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="150" invocations="105" avgMicrosecondsPerInvocation="1434" maxMicrosecondsPerInvocation="17165" standardDeviationMircosecondsPerInvocation="3250"/>
-      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="144" invocations="100" avgMicrosecondsPerInvocation="1440" maxMicrosecondsPerInvocation="15019" standardDeviationMircosecondsPerInvocation="2519"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="143" invocations="103" avgMicrosecondsPerInvocation="1396" maxMicrosecondsPerInvocation="14205" standardDeviationMircosecondsPerInvocation="2676"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="110" invocations="103" avgMicrosecondsPerInvocation="1070" maxMicrosecondsPerInvocation="18985" standardDeviationMircosecondsPerInvocation="2374"/>
-      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="93" invocations="176" avgMicrosecondsPerInvocation="531" maxMicrosecondsPerInvocation="4945" standardDeviationMircosecondsPerInvocation="778"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="92" invocations="14" avgMicrosecondsPerInvocation="6603" maxMicrosecondsPerInvocation="73589" standardDeviationMircosecondsPerInvocation="19114"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="92" invocations="53" avgMicrosecondsPerInvocation="1739" maxMicrosecondsPerInvocation="29476" standardDeviationMircosecondsPerInvocation="4637"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="90" invocations="104" avgMicrosecondsPerInvocation="874" maxMicrosecondsPerInvocation="73685" standardDeviationMircosecondsPerInvocation="7178"/>
-      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="85" invocations="324" avgMicrosecondsPerInvocation="263" maxMicrosecondsPerInvocation="4669" standardDeviationMircosecondsPerInvocation="519"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="83" invocations="53" avgMicrosecondsPerInvocation="1572" maxMicrosecondsPerInvocation="18644" standardDeviationMircosecondsPerInvocation="3235"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="79" invocations="46" avgMicrosecondsPerInvocation="1723" maxMicrosecondsPerInvocation="13628" standardDeviationMircosecondsPerInvocation="2775"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="66" invocations="91" avgMicrosecondsPerInvocation="734" maxMicrosecondsPerInvocation="26455" standardDeviationMircosecondsPerInvocation="2922"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="65" invocations="380" avgMicrosecondsPerInvocation="171" maxMicrosecondsPerInvocation="9483" standardDeviationMircosecondsPerInvocation="483"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="64" invocations="53" avgMicrosecondsPerInvocation="1218" maxMicrosecondsPerInvocation="13347" standardDeviationMircosecondsPerInvocation="2652"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="58" invocations="53" avgMicrosecondsPerInvocation="1100" maxMicrosecondsPerInvocation="14594" standardDeviationMircosecondsPerInvocation="2360"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="44" invocations="53" avgMicrosecondsPerInvocation="838" maxMicrosecondsPerInvocation="9575" standardDeviationMircosecondsPerInvocation="1822"/>
-      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="42" invocations="103" avgMicrosecondsPerInvocation="408" maxMicrosecondsPerInvocation="4581" standardDeviationMircosecondsPerInvocation="746"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="34" invocations="22" avgMicrosecondsPerInvocation="1558" maxMicrosecondsPerInvocation="33689" standardDeviationMircosecondsPerInvocation="7011"/>
-      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="32" invocations="53" avgMicrosecondsPerInvocation="617" maxMicrosecondsPerInvocation="10691" standardDeviationMircosecondsPerInvocation="1614"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="545" invocations="413" avgMicrosecondsPerInvocation="1319" maxMicrosecondsPerInvocation="34616" standardDeviationMircosecondsPerInvocation="3507"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="266" invocations="61" avgMicrosecondsPerInvocation="4373" maxMicrosecondsPerInvocation="57179" standardDeviationMircosecondsPerInvocation="9224"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="215" invocations="81" avgMicrosecondsPerInvocation="2662" maxMicrosecondsPerInvocation="19710" standardDeviationMircosecondsPerInvocation="4887"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ExplicitSerialization" totalMilliseconds="214" invocations="61" avgMicrosecondsPerInvocation="3524" maxMicrosecondsPerInvocation="45952" standardDeviationMircosecondsPerInvocation="7593"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="199" invocations="79" avgMicrosecondsPerInvocation="2530" maxMicrosecondsPerInvocation="23392" standardDeviationMircosecondsPerInvocation="4429"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="179" invocations="81" avgMicrosecondsPerInvocation="2213" maxMicrosecondsPerInvocation="15086" standardDeviationMircosecondsPerInvocation="3776"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="177" invocations="76" avgMicrosecondsPerInvocation="2336" maxMicrosecondsPerInvocation="18718" standardDeviationMircosecondsPerInvocation="3696"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="176" invocations="79" avgMicrosecondsPerInvocation="2228" maxMicrosecondsPerInvocation="18226" standardDeviationMircosecondsPerInvocation="3826"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="152" invocations="61" avgMicrosecondsPerInvocation="2507" maxMicrosecondsPerInvocation="28536" standardDeviationMircosecondsPerInvocation="4927"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="132" invocations="79" avgMicrosecondsPerInvocation="1678" maxMicrosecondsPerInvocation="15845" standardDeviationMircosecondsPerInvocation="2926"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="126" invocations="48" avgMicrosecondsPerInvocation="2641" maxMicrosecondsPerInvocation="25851" standardDeviationMircosecondsPerInvocation="4955"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="109" invocations="350" avgMicrosecondsPerInvocation="312" maxMicrosecondsPerInvocation="6445" standardDeviationMircosecondsPerInvocation="721"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="90" invocations="155" avgMicrosecondsPerInvocation="585" maxMicrosecondsPerInvocation="5735" standardDeviationMircosecondsPerInvocation="789"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="79" invocations="61" avgMicrosecondsPerInvocation="1299" maxMicrosecondsPerInvocation="23621" standardDeviationMircosecondsPerInvocation="3350"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="73" invocations="61" avgMicrosecondsPerInvocation="1203" maxMicrosecondsPerInvocation="14725" standardDeviationMircosecondsPerInvocation="2300"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="73" invocations="80" avgMicrosecondsPerInvocation="917" maxMicrosecondsPerInvocation="58693" standardDeviationMircosecondsPerInvocation="6504"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="72" invocations="79" avgMicrosecondsPerInvocation="921" maxMicrosecondsPerInvocation="8113" standardDeviationMircosecondsPerInvocation="1602"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="64" invocations="61" avgMicrosecondsPerInvocation="1061" maxMicrosecondsPerInvocation="11467" standardDeviationMircosecondsPerInvocation="2042"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="61" invocations="416" avgMicrosecondsPerInvocation="148" maxMicrosecondsPerInvocation="646" standardDeviationMircosecondsPerInvocation="65"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="58" invocations="61" avgMicrosecondsPerInvocation="965" maxMicrosecondsPerInvocation="17432" standardDeviationMircosecondsPerInvocation="2421"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="57" invocations="103" avgMicrosecondsPerInvocation="562" maxMicrosecondsPerInvocation="19807" standardDeviationMircosecondsPerInvocation="2074"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LiveLocalStoreDataflowFactory" totalMilliseconds="53" invocations="76" avgMicrosecondsPerInvocation="698" maxMicrosecondsPerInvocation="6894" standardDeviationMircosecondsPerInvocation="1267"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="48" invocations="23" avgMicrosecondsPerInvocation="2102" maxMicrosecondsPerInvocation="47828" standardDeviationMircosecondsPerInvocation="9748"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="39" invocations="14" avgMicrosecondsPerInvocation="2844" maxMicrosecondsPerInvocation="38478" standardDeviationMircosecondsPerInvocation="9883"/>
     </FindBugsProfile>
   </FindBugsSummary>
   <ClassFeatures></ClassFeatures>

@@ -57,14 +57,6 @@ public class Food {
     /** The Net carbs. */
     private String mNetCarbs = "";
 
-    /*
-     * {"ndb_no":"21473", "long_desc":
-     * "DIGIORNO Pizza, cheese topping, cheese stuffed crust, frozen, baked",
-     * "carbs":"30", "calories":"279", "fat":"12", "protein":"13", "fiber":"2",
-     * "sugars":null, "net_carbs":"28", "amount":"1", "measure":"slice 1\/4 of
-     * pie", "grams":"164", "rank":"4.67262887954712"}
-     */
-
     /**
      * Instantiates a new food.
      */

@@ -1,5 +1,4 @@
 package com.ketopi.app;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.crittercism.app.Crittercism;
 import com.google.gson.Gson;
 
 /**
@@ -42,6 +42,7 @@ public class SearchActivity extends Activity {
     @Override
     public void onCreate(final Bundle bundle) {
         super.onCreate(bundle);
+        Crittercism.init(getApplicationContext(), "509ea479d5f9b91c6c000004");
         setContentView(R.layout.activity_search);
 
         mSearchText = (EditText) findViewById(R.id.searchText);

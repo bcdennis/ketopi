@@ -10,13 +10,6 @@ import junit.framework.TestSuite;
 public final class AllTests {
 
     /**
-     * Instantiates a new all tests.
-     */
-    private AllTests() {
-
-    }
-
-    /**
      * Suite.
      *
      * @return the test
@@ -25,9 +18,17 @@ public final class AllTests {
         TestSuite suite = new TestSuite(AllTests.class.getName());
         //$JUnit-BEGIN$
         suite.addTestSuite(MainActivityTests.class);
+        suite.addTestSuite(FoodTests.class);
         //suite.addTestSuite(SearchResultsActivityTest.class);
         //$JUnit-END$
         return suite;
+    }
+
+    /**
+     * Instantiates a new all tests.
+     */
+    private AllTests() {
+
     }
 
 }
