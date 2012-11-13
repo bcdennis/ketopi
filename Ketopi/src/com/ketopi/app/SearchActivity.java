@@ -35,6 +35,10 @@ public class SearchActivity extends Activity {
         mResults = gson.toJson(results);
     }
 
+    public String getCachedResults() {
+        return mResults;
+    }
+
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -81,7 +85,7 @@ public class SearchActivity extends Activity {
     protected void onSaveInstanceState(final Bundle outState) {
 
         outState.putString("query", mSearcher.getQuery());
-        outState.putString("results", mResults);
+        outState.putString("results", getCachedResults());
 
         super.onSaveInstanceState(outState);
     }

@@ -72,18 +72,42 @@ public class Food {
     public Food(final JSONObject jsonObject) {
 
         mId = jsonObject.optString("id");
-        setNdbNo(jsonObject.optString("ndb_no"));
-        setDescription(jsonObject.optString("long_desc"));
-        setAmount(jsonObject.optString("amount"));
-        setMeasure(jsonObject.optString("measure"));
-        setGrams(jsonObject.optString("grams"));
-        setCarbs(jsonObject.optString("carbs"));
-        setNetCarbs(jsonObject.optString("net_carbs"));
-        setCalories(jsonObject.optString("calories"));
-        setFat(jsonObject.optString("fat"));
-        setProtein(jsonObject.optString("protein"));
-        setFiber(jsonObject.optString("fiber"));
-        setSugars(jsonObject.optString("sugars"));
+        if (jsonObject.has("ndb_no")) {
+            setNdbNo(jsonObject.optString("ndb_no"));
+        }
+        if (jsonObject.has("long_desc")) {
+            setDescription(jsonObject.optString("long_desc"));
+        }
+        if (jsonObject.has("amount")) {
+            setAmount(jsonObject.optString("amount"));
+        }
+        if (jsonObject.has("measure")) {
+            setMeasure(jsonObject.optString("measure"));
+        }
+        if (jsonObject.has("grams")) {
+            setGrams(jsonObject.optString("grams"));
+        }
+        if (jsonObject.has("carbs")) {
+            setCarbs(jsonObject.optString("carbs"));
+        }
+        if (jsonObject.has("net_carbs")) {
+            setNetCarbs(jsonObject.optString("net_carbs"));
+        }
+        if (jsonObject.has("calories")) {
+            setCalories(jsonObject.optString("calories"));
+        }
+        if (jsonObject.has("fat")) {
+            setFat(jsonObject.optString("fat"));
+        }
+        if (jsonObject.has("protein")) {
+            setProtein(jsonObject.optString("protein"));
+        }
+        if (jsonObject.has("fiber")) {
+            setFiber(jsonObject.optString("fiber"));
+        }
+        if (jsonObject.has("sugars")) {
+            setSugars(jsonObject.optString("sugars"));
+        }
 
     }
 

@@ -48,6 +48,11 @@ ActivityInstrumentationTestCase2<SearchActivity> {
     }
 
     @SmallTest
+    public void testCaching() {
+
+    }
+
+    @SmallTest
     public void testPreconditions() {
         assertNotNull("Main Activity is not null.", mActivity);
     }
