@@ -14,7 +14,8 @@ public class Searcher implements ISearchTaskCompleteListener<String, Food[]> {
     private final SearchActivity mParentActivity;
 
     /** The Query. */
-    private String mQuery = "";
+    private String mQuery;
+
 
     /**
      * Instantiates a new searcher.
@@ -48,7 +49,8 @@ public class Searcher implements ISearchTaskCompleteListener<String, Food[]> {
      */
     public void onTaskComplete(final String query, final Food[] results) {
 
-        mParentActivity.cacheSearchResults(results);
+        mParentActivity.setLastQuery(query);
+        mParentActivity.setLastResults(results);
         final SearchListAdapter adapter = new SearchListAdapter(mParentActivity,
                 results);
         mResultsView.setAdapter(adapter);

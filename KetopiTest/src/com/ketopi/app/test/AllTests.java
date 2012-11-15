@@ -17,7 +17,7 @@ public final class AllTests {
     public static Test suite() {
         TestSuite suite = new TestSuite(AllTests.class.getName());
         //$JUnit-BEGIN$
-        suite.addTestSuite(MainActivityTests.class);
+        suite.addTestSuite(SearchActivityTests.class);
         suite.addTestSuite(FoodTests.class);
         //suite.addTestSuite(SearchResultsActivityTest.class);
         //$JUnit-END$

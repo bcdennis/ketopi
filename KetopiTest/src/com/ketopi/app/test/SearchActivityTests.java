@@ -1,6 +1,13 @@
 package com.ketopi.app.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONObject;
+
+import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.UiThreadTest;
 import android.test.ViewAsserts;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.View;
@@ -11,9 +18,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
+import com.google.gson.Gson;
+import com.ketopi.app.Food;
 import com.ketopi.app.SearchActivity;
 
-public class MainActivityTests extends
+public class SearchActivityTests extends
 ActivityInstrumentationTestCase2<SearchActivity> {
 
     private SearchActivity mActivity;
@@ -21,7 +30,17 @@ ActivityInstrumentationTestCase2<SearchActivity> {
     private ListView mSearchList;
     private Button mSearchButton;
 
-    public MainActivityTests(final String name) {
+    private List<Food> mFoods;
+    private Food mDigiorno;
+    private String mDigiornoString;
+    private JSONObject mDigiornoJSON;
+
+    private String mQuery;
+    private String mResponse;
+    private String mFoodsSerialized;
+
+
+    public SearchActivityTests(final String name) {
         super(SearchActivity.class);
         setName(name);
     }
@@ -40,6 +59,17 @@ ActivityInstrumentationTestCase2<SearchActivity> {
         mSearchButton = (Button) mActivity
                 .findViewById(com.ketopi.app.R.id.searchButton);
 
+        // Test Data
+        Gson gson = new Gson();
+        mQuery = "DIGIORNO";
+        mResponse  =  "{\"query\":\"DIGIORNO\",\"results\":[{\"ndb_no\":\"21474\",\"long_desc\":\"DIGIORNO Pizza, cheese topping, rising crust, frozen, baked\",\"carbs\":\"32\",\"calories\":\"256\",\"fat\":\"9\",\"protein\":\"13\",\"fiber\":\"2\",\"sugars\":\"5\",\"net_carbs\":\"30\",\"amount\":\"1\",\"measure\":\"slice 1\\/4 of pie\",\"grams\":\"183\",\"rank\":\"6.34481477737427\"}]}";
+        mDigiornoString = "{\"ndb_no\":\"21474\",\"long_desc\":\"DIGIORNO Pizza, cheese topping, rising crust, frozen, baked\",\"carbs\":\"32\",\"calories\":\"256\",\"fat\":\"9\",\"protein\":\"13\",\"fiber\":\"2\",\"sugars\":\"5\",\"net_carbs\":\"30\",\"amount\":\"1\",\"measure\":\"slice 1\\/4 of pie\",\"grams\":\"183\",\"rank\":\"6.34481477737427\"}";
+        mDigiornoJSON = new JSONObject(mDigiornoString);
+        mDigiorno = Food.fromJSON(mDigiornoJSON);
+        mFoods = new ArrayList<Food>();
+        mFoods.add(mDigiorno);
+        mFoodsSerialized = gson.toJson(mFoods.toArray(new Food[]{}),Food[].class);
+
     }
 
     @Override
@@ -47,14 +77,57 @@ ActivityInstrumentationTestCase2<SearchActivity> {
         super.tearDown();
     }
 
-    @SmallTest
-    public void testCaching() {
+    @UiThreadTest
+    public void testActivityOnResume() throws Throwable {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("query", mQuery);
+        bundle.putString("results", mFoodsSerialized);
+
+        getInstrumentation().callActivityOnCreate(mActivity, bundle);
+        getInstrumentation().callActivityOnResume(mActivity);
+
+        mSearchText = (EditText) mActivity
+                .findViewById(com.ketopi.app.R.id.searchText);
+
+        assertTrue(mQuery.equals(mSearchText.getText().toString()));
+    }
+
+    @UiThreadTest
+    public void testActivityOnSaveInstanceState() throws Throwable {
+
+        Bundle bundle = new Bundle();
+        mActivity.setLastQuery(mQuery);
+        mActivity.setLastResults(mFoods.toArray(new Food[]{}));
+
+        getInstrumentation().callActivityOnSaveInstanceState(mActivity, bundle);
+        getInstrumentation().callActivityOnPause(mActivity);
+        getInstrumentation().callActivityOnStop(mActivity);
+        getInstrumentation().callActivityOnDestroy(mActivity);
+
+        //initialize activity with the saved bundle
+        getInstrumentation().callActivityOnCreate(mActivity, bundle);
+        getInstrumentation().callActivityOnResume(mActivity);
+
+        assertTrue("DIGIORNO".equals(mActivity.getLastQuery()));
 
     }
 
     @SmallTest
     public void testPreconditions() {
         assertNotNull("Main Activity is not null.", mActivity);
+    }
+
+
+    @UiThreadTest
+    public void testSearchButtonOnClick() throws Throwable {
+        mSearchText.setText(mQuery);
+        mSearchButton.performClick();
+        Thread.sleep(2000);
+
+        assertTrue(mActivity.getLastQuery().equals(mQuery));
+
+
     }
 
     /*
