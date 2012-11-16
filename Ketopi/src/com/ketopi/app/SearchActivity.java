@@ -8,15 +8,20 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
-import com.ketopi.core.AsyncSearchTask;
 import com.ketopi.core.Food;
+import com.ketopi.core.ISearchListener;
+import com.ketopi.core.SearchRequest;
 import com.ketopi.core.SearchResult;
+import com.ketopi.core.SearchTask;
 
 /**
  * The Class SearchActivity.
  */
-public class SearchActivity extends Activity {
+public class SearchActivity extends Activity implements
+ISearchListener<SearchResult> {
 
+    /** The Constant API. */
+    private static final String API = "http://www.ketopi.com/api/search.json?query=";
 
     /** The Search text. */
     private EditText mSearchText;
@@ -33,13 +38,10 @@ public class SearchActivity extends Activity {
     /** The progress dialog. */
     private ProgressDialog mProgress;
 
-    /**
-     * Dismisses the ProgressDialog.
-     */
-    public void endProgress() {
-        mProgress.dismiss();
+    /** The Search task. */
+    private SearchTask mSearchTask;
 
-    } /**
+    /**
      * Gets the last query.
      *
      * @return the lastQuery
@@ -69,6 +71,7 @@ public class SearchActivity extends Activity {
         mSearchText = (EditText) findViewById(R.id.searchText);
         mSearchText.setText("DIGIORNO");
         mResultsList = (ListView) findViewById(R.id.searchList);
+        mSearchTask = new SearchTask(this);
 
         mProgress = new ProgressDialog(this, R.style.BusyWaitDialog);
         mProgress.setMessage(getString(R.string.searchDialog_text));
@@ -81,7 +84,8 @@ public class SearchActivity extends Activity {
             setLastResults(unserialize(bundle.getString("results")));
 
             mSearchText.setText(getLastQuery());
-            final SearchListAdapter adapter = new SearchListAdapter(this, getLastResults());
+            final SearchListAdapter adapter = new SearchListAdapter(this,
+                    getLastResults());
             mResultsList.setAdapter(adapter);
 
         }
@@ -100,20 +104,28 @@ public class SearchActivity extends Activity {
         super.onSaveInstanceState(outState);
     }
 
-
     /**
-     * Processes the SearcResult.
-     *
-     * @param result the result from the SearchTask
+     * Called when the search task is finished.
+     * @param result - the returned search result.
      */
-    public void processResult(final SearchResult result) {
-
+    public void onSearchFinish(final SearchResult result) {
         setLastQuery(result.query);
-        setLastResults(result.foods.toArray(new Food[]{}));
+        setLastResults(result.foods.toArray(new Food[] {}));
 
         mSearchText.setText(getLastQuery());
-        final SearchListAdapter adapter = new SearchListAdapter(this, getLastResults());
+        final SearchListAdapter adapter = new SearchListAdapter(this,
+                getLastResults());
         mResultsList.setAdapter(adapter);
+
+        mProgress.dismiss();
+
+    }
+
+    /**
+     * Called when a search task is about to be executed.
+     */
+    public void onSearchStart() {
+        mProgress.show();
     }
 
     /**
@@ -122,10 +134,12 @@ public class SearchActivity extends Activity {
      * @param arg0 the arg0
      */
     public void searchButtonOnClick(final View arg0) {
-        new AsyncSearchTask(this).execute(mSearchText.getText().toString());
+        if (mSearchTask != null) {
+            mSearchTask.execute(new SearchRequest(API, mSearchText.getText()
+                    .toString()));
+        }
+
     }
-
-
 
     /**
      * Convert the results to a JSON string.
@@ -157,10 +171,12 @@ public class SearchActivity extends Activity {
     }
 
     /**
-     * Shows the busy-wait progress dialog..
+     * Sets the search task.
+     *
+     * @param task the new search task
      */
-    public void startProgress() {
-        mProgress.show();
+    public void setSearchTask(final SearchTask task) {
+        mSearchTask = task;
     }
 
     /**
@@ -175,5 +191,3 @@ public class SearchActivity extends Activity {
 
     }
 }
-
-
