@@ -1,4 +1,4 @@
-package com.ketopi.app.test;
+package com.ketopi.test;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

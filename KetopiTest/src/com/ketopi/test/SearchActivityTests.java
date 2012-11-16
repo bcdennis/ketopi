@@ -1,4 +1,4 @@
-package com.ketopi.app.test;
+package com.ketopi.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.google.gson.Gson;
-import com.ketopi.app.Food;
 import com.ketopi.app.SearchActivity;
+import com.ketopi.core.Food;
 
 public class SearchActivityTests extends
 ActivityInstrumentationTestCase2<SearchActivity> {
@@ -28,17 +28,17 @@ ActivityInstrumentationTestCase2<SearchActivity> {
     private SearchActivity mActivity;
     private EditText mSearchText;
     private ListView mSearchList;
-    private Button mSearchButton;
 
+    private Button mSearchButton;
     private List<Food> mFoods;
     private Food mDigiorno;
     private String mDigiornoString;
+
     private JSONObject mDigiornoJSON;
-
     private String mQuery;
-    private String mResponse;
-    private String mFoodsSerialized;
 
+
+    private String mFoodsSerialized;
 
     public SearchActivityTests(final String name) {
         super(SearchActivity.class);
@@ -62,7 +62,7 @@ ActivityInstrumentationTestCase2<SearchActivity> {
         // Test Data
         Gson gson = new Gson();
         mQuery = "DIGIORNO";
-        mResponse  =  "{\"query\":\"DIGIORNO\",\"results\":[{\"ndb_no\":\"21474\",\"long_desc\":\"DIGIORNO Pizza, cheese topping, rising crust, frozen, baked\",\"carbs\":\"32\",\"calories\":\"256\",\"fat\":\"9\",\"protein\":\"13\",\"fiber\":\"2\",\"sugars\":\"5\",\"net_carbs\":\"30\",\"amount\":\"1\",\"measure\":\"slice 1\\/4 of pie\",\"grams\":\"183\",\"rank\":\"6.34481477737427\"}]}";
+        //mResponse  =  "{\"query\":\"DIGIORNO\",\"results\":[{\"ndb_no\":\"21474\",\"long_desc\":\"DIGIORNO Pizza, cheese topping, rising crust, frozen, baked\",\"carbs\":\"32\",\"calories\":\"256\",\"fat\":\"9\",\"protein\":\"13\",\"fiber\":\"2\",\"sugars\":\"5\",\"net_carbs\":\"30\",\"amount\":\"1\",\"measure\":\"slice 1\\/4 of pie\",\"grams\":\"183\",\"rank\":\"6.34481477737427\"}]}";
         mDigiornoString = "{\"ndb_no\":\"21474\",\"long_desc\":\"DIGIORNO Pizza, cheese topping, rising crust, frozen, baked\",\"carbs\":\"32\",\"calories\":\"256\",\"fat\":\"9\",\"protein\":\"13\",\"fiber\":\"2\",\"sugars\":\"5\",\"net_carbs\":\"30\",\"amount\":\"1\",\"measure\":\"slice 1\\/4 of pie\",\"grams\":\"183\",\"rank\":\"6.34481477737427\"}";
         mDigiornoJSON = new JSONObject(mDigiornoString);
         mDigiorno = Food.fromJSON(mDigiornoJSON);
@@ -116,18 +116,6 @@ ActivityInstrumentationTestCase2<SearchActivity> {
     @SmallTest
     public void testPreconditions() {
         assertNotNull("Main Activity is not null.", mActivity);
-    }
-
-
-    @UiThreadTest
-    public void testSearchButtonOnClick() throws Throwable {
-        mSearchText.setText(mQuery);
-        mSearchButton.performClick();
-        Thread.sleep(2000);
-
-        assertTrue(mActivity.getLastQuery().equals(mQuery));
-
-
     }
 
     /*
@@ -250,5 +238,6 @@ ActivityInstrumentationTestCase2<SearchActivity> {
         ViewAsserts.assertOnScreen(origin, mSearchList);
         ViewAsserts.assertOnScreen(origin, mSearchButton);
     }
+
 
 }

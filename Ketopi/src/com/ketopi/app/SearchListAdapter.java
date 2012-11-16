@@ -1,5 +1,7 @@
 package com.ketopi.app;
 
+import com.ketopi.core.Food;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.ketopi.app;
+package com.ketopi.core;
 
 import org.json.JSONObject;
 
