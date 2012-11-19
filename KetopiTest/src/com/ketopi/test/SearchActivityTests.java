@@ -21,6 +21,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.google.gson.Gson;
 import com.ketopi.app.SearchActivity;
 import com.ketopi.core.Food;
+import com.ketopi.test.mocks.SerialSearchTask;
 
 public class SearchActivityTests extends
 ActivityInstrumentationTestCase2<SearchActivity> {
@@ -97,8 +98,10 @@ ActivityInstrumentationTestCase2<SearchActivity> {
     public void testActivityOnSaveInstanceState() throws Throwable {
 
         Bundle bundle = new Bundle();
-        mActivity.setLastQuery(mQuery);
-        mActivity.setLastResults(mFoods.toArray(new Food[]{}));
+
+        mSearchText.setText("Cheese");
+        mActivity.setSearchTask(new SerialSearchTask(mActivity));
+        mSearchButton.performClick();
 
         getInstrumentation().callActivityOnSaveInstanceState(mActivity, bundle);
         getInstrumentation().callActivityOnPause(mActivity);
@@ -109,7 +112,33 @@ ActivityInstrumentationTestCase2<SearchActivity> {
         getInstrumentation().callActivityOnCreate(mActivity, bundle);
         getInstrumentation().callActivityOnResume(mActivity);
 
-        assertTrue("DIGIORNO".equals(mActivity.getLastQuery()));
+    }
+
+    public void testListViewCaching() {
+
+
+        mActivity.runOnUiThread(new Runnable() {
+            public void run() {
+                mSearchText.setText("cheddar");
+                mActivity.setSearchTask(new SerialSearchTask(mActivity));
+                mSearchButton.performClick();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        mActivity.runOnUiThread(new Runnable() {
+            public void run() {
+                mSearchList.setSelection(30);
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        mActivity.runOnUiThread(new Runnable() {
+            public void run() {
+                mSearchList.setSelection(0);
+            }
+        });
+        getInstrumentation().waitForIdleSync();
 
     }
 
@@ -181,6 +210,14 @@ ActivityInstrumentationTestCase2<SearchActivity> {
         assertTrue(com.ketopi.app.R.id.searchButton == rules[RelativeLayout.BELOW]);
     }
 
+    @UiThreadTest
+    public void testSearchOnClick() {
+        mSearchText.setText(mQuery);
+        mActivity.setSearchTask(new SerialSearchTask(mActivity));
+        mSearchButton.performClick();
+
+        assertTrue(mActivity.getLastQuery().equals(mQuery));
+    }
     /*
      * android:id="@+id/searchText"
      */

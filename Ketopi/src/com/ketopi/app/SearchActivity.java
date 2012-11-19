@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.ketopi.core.Food;
 import com.ketopi.core.ISearchListener;
+import com.ketopi.core.NoOp;
 import com.ketopi.core.SearchRequest;
 import com.ketopi.core.SearchResult;
 import com.ketopi.core.SearchTask;
@@ -88,6 +89,8 @@ ISearchListener<SearchResult> {
                     getLastResults());
             mResultsList.setAdapter(adapter);
 
+        } else {
+            NoOp.instance().run();
         }
 
     }
@@ -134,10 +137,8 @@ ISearchListener<SearchResult> {
      * @param arg0 the arg0
      */
     public void searchButtonOnClick(final View arg0) {
-        if (mSearchTask != null) {
-            mSearchTask.execute(new SearchRequest(API, mSearchText.getText()
-                    .toString()));
-        }
+        mSearchTask.execute(new SearchRequest(API, mSearchText.getText()
+                .toString()));
 
     }
 
