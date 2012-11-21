@@ -8,7 +8,7 @@ package com.ketopi.core;
 public final class NoOp {
 
     /** The Singleton. */
-    private static NoOp instance = new NoOp();
+    private static NoOp singleton = new NoOp();
 
     /**
      * Get an instance of NoOp. This is used instead of a conventional constructor
@@ -16,8 +16,8 @@ public final class NoOp {
      *
      * @return return the singleton instance.
      */
-    public static NoOp instance() {
-        return instance;
+    public static NoOp getInstance() {
+        return singleton;
     }
 
     /**

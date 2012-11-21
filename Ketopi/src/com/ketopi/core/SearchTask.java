@@ -3,7 +3,6 @@ package com.ketopi.core;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import org.apache.http.auth.AuthenticationException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +14,6 @@ import com.ketopi.rest.RestClient;
 import com.ketopi.rest.RestException;
 import com.ketopi.rest.RestMethod;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SearchTask.
  *
@@ -42,7 +40,7 @@ public class SearchTask {
          */
         @Override
         protected void onPostExecute(final SearchResult result) {
-            mListener.onSearchFinish(result);
+            getListener().onSearchFinish(result);
         }
 
         /* (non-Javadoc)
@@ -50,12 +48,12 @@ public class SearchTask {
          */
         @Override
         protected void onPreExecute() {
-            mListener.onSearchStart();
+            getListener().onSearchStart();
         }
     }
 
     /** The Listener. */
-    protected ISearchListener<SearchResult> mListener;
+    private ISearchListener<SearchResult> mListener;
 
     /** The LogCat Tag. */
     private static final String TAG = "Ketopi";
@@ -69,7 +67,7 @@ public class SearchTask {
      * @param listener the listener
      */
     public SearchTask(final ISearchListener<SearchResult> listener) {
-        mListener = listener;
+        setListener(listener);
     }
 
     /**
@@ -92,29 +90,36 @@ public class SearchTask {
         results.query = "";
         results.response = "";
 
-        final RestClient client = new RestClient(request.url
-                + URLEncoder.encode(request.query));
+        RestClient client = new RestClient(request.url);
 
         try {
 
+            client.addParam("query",
+                    URLEncoder.encode(request.query, request.encoding));
             client.execute(RestMethod.GET);
+            results.response = client.getResponse();
 
-        } catch (AuthenticationException e) {
-            Log.e(TAG, e.getMessage());
-            results.exceptions.add(new RestException(client.getErrorMessage()));
+            if (client.getResponseCode() != HTTP_OK) {
+
+                Log.e(TAG,
+                        "HTTP RESP: " + Integer.toString(client.getResponseCode())
+                        + " - " + client.getErrorMessage());
+                results.exceptions.add(new RestException(client.getErrorMessage()));
+            }
 
         } catch (UnsupportedEncodingException e) {
             Log.e(TAG, e.getMessage());
-            results.exceptions.add(new RestException(client.getErrorMessage()));
+            results.exceptions.add(new RestException("Unsupported Encoding"));
         }
 
-        if (client.getResponseCode() != HTTP_OK) {
-            Log.e(TAG, client.getErrorMessage());
-            results.exceptions.add(new RestException(client.getErrorMessage()));
-        }
-        // return valid data
-        results.response = client.getResponse();
         return process(results);
+    }
+
+    /**
+     * @return the listener
+     */
+    protected ISearchListener<SearchResult> getListener() {
+        return mListener;
     }
 
     /**
@@ -141,5 +146,12 @@ public class SearchTask {
         }
 
         return result;
+    }
+
+    /**
+     * @param listener the listener to set
+     */
+    protected void setListener(final ISearchListener<SearchResult> listener) {
+        mListener = listener;
     }
 }

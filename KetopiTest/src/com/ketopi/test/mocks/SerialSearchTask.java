@@ -17,9 +17,9 @@ public class SerialSearchTask extends SearchTask {
 
     @Override
     public void execute(final SearchRequest request) {
-        mListener.onSearchStart();
+        getListener().onSearchStart();
         SearchResult result = fetch(request);
-        mListener.onSearchFinish(result);
+        getListener().onSearchFinish(result);
 
     }
 

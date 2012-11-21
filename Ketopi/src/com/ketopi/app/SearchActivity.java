@@ -22,7 +22,7 @@ public class SearchActivity extends Activity implements
 ISearchListener<SearchResult> {
 
     /** The Constant API. */
-    private static final String API = "http://www.ketopi.com/api/search.json?query=";
+    private static final String API = "http://www.ketopi.com/api/search.json";
 
     /** The Search text. */
     private EditText mSearchText;
@@ -90,7 +90,7 @@ ISearchListener<SearchResult> {
             mResultsList.setAdapter(adapter);
 
         } else {
-            NoOp.instance().run();
+            NoOp.getInstance().run();
         }
 
     }
