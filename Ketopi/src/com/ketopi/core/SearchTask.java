@@ -3,6 +3,7 @@ package com.ketopi.core;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +13,6 @@ import android.util.Log;
 
 import com.ketopi.rest.RestClient;
 import com.ketopi.rest.RestException;
-import com.ketopi.rest.RestMethod;
 
 /**
  * The Class SearchTask.
@@ -93,10 +93,11 @@ public class SearchTask {
         RestClient client = new RestClient(request.url);
 
         try {
-
+            client.addHeader("Accept", "application/json");
             client.addParam("query",
                     URLEncoder.encode(request.query, request.encoding));
-            client.execute(RestMethod.GET);
+
+            client.execute(new DefaultHttpClient());
             results.response = client.getResponse();
 
             if (client.getResponseCode() != HTTP_OK) {
@@ -130,7 +131,6 @@ public class SearchTask {
      */
     protected SearchResult process(final SearchResult result) {
 
-        result.response = result.response.trim() + "}";
 
         try {
             final JSONObject response = new JSONObject(result.response);

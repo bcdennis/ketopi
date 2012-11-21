@@ -38,6 +38,8 @@ import org.apache.http.params.HttpParams;
 
 import android.util.Log;
 
+import com.ketopi.core.NoOp;
+
 /**
  * The Class RestClient.
  */
@@ -67,20 +69,20 @@ public class RestClient {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, "I/O Exception");
         } finally {
             try {
                 stream.close();
             } catch (IOException e) {
-                Log.e(TAG, e.getMessage());
+                Log.e(TAG, "I/O Exception");
             }
         }
-        return buffer.toString();
+
+        return buffer.toString().trim();
     }
 
     /** The headers. */
     private final List<NameValuePair> mHeaders;
-
 
     /** The message. */
     private String message;
@@ -97,6 +99,7 @@ public class RestClient {
     /** The URL. */
     private final String mUrl;
 
+
     /**
      * Instantiates a new rest client.
      *
@@ -107,7 +110,6 @@ public class RestClient {
         mParams = new ArrayList<NameValuePair>();
         mHeaders = new ArrayList<NameValuePair>();
     }
-
 
     /**
      * Adds the get params.
@@ -166,31 +168,25 @@ public class RestClient {
     /**
      * Execute.
      *
-     * @param method the method
+     * @param client The HTTP Client to use.
      * @throws UnsupportedEncodingException
      *          Thrown when unrecognized encoding is used.
      */
-    public void execute(final RestMethod method) throws UnsupportedEncodingException {
-        switch (method) {
-        case GET:
-            final HttpGet getRequest = (HttpGet) addHeaderParams(new HttpGet(
-                    mUrl + addGetParams()));
-            executeRequest(getRequest);
-            break;
-
-        default:
-            break;
-        }
+    public void execute(final DefaultHttpClient client)
+            throws UnsupportedEncodingException {
+        final HttpGet getRequest = (HttpGet) addHeaderParams(new HttpGet(
+                mUrl + addGetParams()));
+        executeRequest(client, getRequest);
     }
 
     /**
      * Execute request.
      *
+     * @param client the HTTP Client to use.
      * @param request the request
      */
-    private void executeRequest(final HttpUriRequest request) {
+    private void executeRequest(final DefaultHttpClient client, final HttpUriRequest request) {
 
-        final DefaultHttpClient client = new DefaultHttpClient();
         final HttpParams params = client.getParams();
 
         // Setting 30 second timeouts
@@ -206,23 +202,24 @@ public class RestClient {
 
             final HttpEntity entity = httpResponse.getEntity();
 
-            if (entity != null) {
+            mResponse = convertStreamToString(entity.getContent());
 
-                final InputStream instream = entity.getContent();
-                mResponse = convertStreamToString(instream);
-
-                // Closing the input stream will trigger connection release
-                instream.close();
+            // repair JSON
+            if (mResponse.startsWith("{")) {
+                mResponse += "}";
+            } else {
+                NoOp.getInstance().run();
             }
 
-        } catch (ClientProtocolException e) {
-            client.getConnectionManager().shutdown();
 
-            Log.e(TAG, e.getMessage());
+        } catch (ClientProtocolException e) {
+            Log.e(TAG, e.getCause().getMessage());
         } catch (IOException e) {
-            client.getConnectionManager().shutdown();
             Log.e(TAG, e.getMessage());
+        } finally {
+            client.getConnectionManager().shutdown();
         }
+
     }
 
     /**

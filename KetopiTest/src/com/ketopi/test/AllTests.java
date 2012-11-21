@@ -20,6 +20,7 @@ public final class AllTests {
         suite.addTestSuite(SearchActivityTests.class);
         suite.addTestSuite(FoodTests.class);
         suite.addTestSuite(SearchTaskTests.class);
+        suite.addTestSuite(RestClientTests.class);
         //suite.addTestSuite(SearchResultsActivityTest.class);
         //$JUnit-END$
         return suite;

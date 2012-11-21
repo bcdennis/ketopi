@@ -70,7 +70,7 @@ ISearchListener<SearchResult> {
         setContentView(R.layout.activity_search);
 
         mSearchText = (EditText) findViewById(R.id.searchText);
-        mSearchText.setText("DIGIORNO");
+        //        mSearchText.setText("DIGIORNO");
         mResultsList = (ListView) findViewById(R.id.searchList);
         mSearchTask = new SearchTask(this);
 
