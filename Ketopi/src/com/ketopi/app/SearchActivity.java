@@ -26,6 +26,8 @@ ISearchListener<SearchResult> {
 
     /** The Constant API. */
     private static final String API = "http://www.ketopi.com/api/search.json";
+    //    private static final String API = "http://www.ketopi.com/api_test/search_longrunning.json";
+    //    private static final String API = "http://www.ketopi.com/api_test/search_largeresult.json";
 
     /** The Search text. */
     private EditText mSearchText;
@@ -73,7 +75,7 @@ ISearchListener<SearchResult> {
         setContentView(R.layout.activity_search);
 
         mSearchText = (EditText) findViewById(R.id.searchText);
-        //        mSearchText.setText("DIGIORNO");
+        mSearchText.setText("DIGIORNO");
         mResultsList = (ListView) findViewById(R.id.searchList);
         mSearchTask = new SearchTask(this);
 

@@ -234,7 +234,7 @@ ActivityInstrumentationTestCase2<SearchActivity> {
                 .toString());
 
         // android:text="@string/searchText_text"
-        assertEquals("", mSearchText.getText().toString());
+        assertEquals(mQuery, mSearchText.getText().toString());
 
         LayoutParams parameters = (LayoutParams) mSearchText.getLayoutParams();
 
