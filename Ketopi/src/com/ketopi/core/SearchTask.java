@@ -17,7 +17,7 @@ import com.ketopi.rest.RestException;
 /**
  * The Class SearchTask.
  *
- * @author brad
+ * @author Brad Dennis
  */
 public class SearchTask {
 
@@ -87,30 +87,30 @@ public class SearchTask {
      */
     protected SearchResult fetch(final SearchRequest request) {
         SearchResult results = new SearchResult();
-        results.query = "";
-        results.response = "";
+        results.setQuery("");
+        results.setResponse("");
 
-        RestClient client = new RestClient(request.url);
+        RestClient client = new RestClient(request.getUrl());
 
         try {
             client.addHeader("Accept", "application/json");
             client.addParam("query",
-                    URLEncoder.encode(request.query, request.encoding));
+                    URLEncoder.encode(request.getQuery(), request.getEncoding()));
 
             client.execute(new DefaultHttpClient());
-            results.response = client.getResponse();
+            results.setResponse(client.getResponse());
 
             if (client.getResponseCode() != HTTP_OK) {
 
                 Log.e(TAG,
                         "HTTP RESP: " + Integer.toString(client.getResponseCode())
                         + " - " + client.getErrorMessage());
-                results.exceptions.add(new RestException(client.getErrorMessage()));
+                results.getExceptions().add(new RestException(client.getErrorMessage()));
             }
 
         } catch (UnsupportedEncodingException e) {
             Log.e(TAG, e.getMessage());
-            results.exceptions.add(new RestException("Unsupported Encoding"));
+            results.getExceptions().add(new RestException("Unsupported Encoding"));
         }
 
         return process(results);
@@ -133,12 +133,12 @@ public class SearchTask {
 
 
         try {
-            final JSONObject response = new JSONObject(result.response);
-            result.query = response.getString("query");
+            final JSONObject response = new JSONObject(result.getResponse());
+            result.setQuery(response.getString("query"));
             final JSONArray json = response.getJSONArray("results");
 
             for (int i = 0; i < json.length(); ++i) {
-                result.foods.add(Food.fromJSON(json.getJSONObject(i)));
+                result.getFoods().add(Food.fromJSON(json.getJSONObject(i)));
             }
 
         } catch (JSONException e) {

@@ -33,8 +33,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 
 import android.util.Log;
 
@@ -44,8 +42,6 @@ import com.ketopi.core.NoOp;
  * The Class RestClient.
  */
 public class RestClient {
-
-    private static final int THIRTY_SECONDS = 30 * 1000;
 
     /** The LogCat Tag. */
     private static final String TAG = "Ketopi-REST";
@@ -186,12 +182,6 @@ public class RestClient {
      * @param request the request
      */
     private void executeRequest(final DefaultHttpClient client, final HttpUriRequest request) {
-
-        final HttpParams params = client.getParams();
-
-        // Setting 30 second timeouts
-        HttpConnectionParams.setConnectionTimeout(params, THIRTY_SECONDS);
-        HttpConnectionParams.setSoTimeout(params, THIRTY_SECONDS);
 
         HttpResponse httpResponse;
 

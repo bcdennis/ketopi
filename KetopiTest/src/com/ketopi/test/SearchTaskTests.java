@@ -26,10 +26,6 @@ public class SearchTaskTests extends TestCase {
         public LooperThread() {
         }
 
-        public LooperThread(final Runnable runnable) {
-            super(runnable);
-        }
-
         @Override
         public void start() {
             new Thread() {
@@ -62,8 +58,8 @@ public class SearchTaskTests extends TestCase {
         super.setUp();
 
         mRequest = new SearchRequest();
-        mRequest.query = "DIGIORNO";
-        mRequest.url = "http://www.ketopi.com/api/search.json";
+        mRequest.setQuery("DIGIORNO");
+        mRequest.setUrl("http://www.ketopi.com/api/search.json");
         mResponse =  "{\"query\":\"DIGIORNO\",\"results\":[{\"ndb_no\":\"21474\",\"long_desc\":\"DIGIORNO Pizza, cheese topping, rising crust, frozen, baked\",\"carbs\":\"32\",\"calories\":\"256\",\"fat\":\"9\",\"protein\":\"13\",\"fiber\":\"2\",\"sugars\":\"5\",\"net_carbs\":\"30\",\"amount\":\"1\",\"measure\":\"slice 1\\/4 of pie\",\"grams\":\"183\",\"rank\":\"6.34481477737427\"}]}";
 
 
@@ -93,8 +89,8 @@ public class SearchTaskTests extends TestCase {
                 new SearchTask(new ISearchListener<SearchResult>() {
 
                     public void onSearchFinish(final SearchResult result) {
-                        assertTrue(result.query.equals(mRequest.query));
-                        assertTrue(result.response.equals(mResponse));
+                        assertTrue(result.getQuery().equals(mRequest.getQuery()));
+                        assertTrue(result.getResponse().equals(mResponse));
 
                         latch.countDown();
                     }
@@ -116,7 +112,7 @@ public class SearchTaskTests extends TestCase {
      */
     public final void testExecuteEmptyResult() throws InterruptedException {
 
-        mRequest.query = "DIGORNIO";
+        mRequest.setQuery("DIGORNIO");
         mResponse = "{\"query\":\"DIGORNIO\",\"results\":[]}";
 
         final CountDownLatch latch = new CountDownLatch(1);
@@ -130,8 +126,8 @@ public class SearchTaskTests extends TestCase {
 
                     public void onSearchFinish(final SearchResult result) {
 
-                        assertTrue(result.query.equals(mRequest.query));
-                        assertTrue(result.response.equals(mResponse));
+                        assertTrue(result.getQuery().equals(mRequest.getQuery()));
+                        assertTrue(result.getResponse().equals(mResponse));
 
                         latch.countDown();
                     }
@@ -153,7 +149,7 @@ public class SearchTaskTests extends TestCase {
      */
     public final void testExecuteShould403() throws InterruptedException {
 
-        mRequest.url = "http://www.ketopi.com/api_test/search_403.json";
+        mRequest.setUrl("http://www.ketopi.com/api_test/search_403.json");
         final CountDownLatch latch = new CountDownLatch(1);
 
         // This thread is the "fake" UI thread
@@ -164,7 +160,7 @@ public class SearchTaskTests extends TestCase {
                 new SearchTask(new ISearchListener<SearchResult>() {
 
                     public void onSearchFinish(final SearchResult result) {
-                        ArrayList<Exception> exceptions = (ArrayList<Exception>) result.exceptions;
+                        ArrayList<Exception> exceptions = (ArrayList<Exception>) result.getExceptions();
                         RestException exception = (RestException) exceptions.get(0);
 
                         assertTrue(exceptions.size() == 1);
@@ -190,7 +186,7 @@ public class SearchTaskTests extends TestCase {
      */
     public final void testExecuteShould404() throws InterruptedException {
 
-        mRequest.url = "http://www.ketopi.com/api_test/search_404.json";
+        mRequest.setUrl("http://www.ketopi.com/api_test/search_404.json");
         final CountDownLatch latch = new CountDownLatch(1);
 
         // This thread is the "fake" UI thread
@@ -201,7 +197,7 @@ public class SearchTaskTests extends TestCase {
                 new SearchTask(new ISearchListener<SearchResult>() {
 
                     public void onSearchFinish(final SearchResult result) {
-                        ArrayList<Exception> exceptions = (ArrayList<Exception>) result.exceptions;
+                        ArrayList<Exception> exceptions = (ArrayList<Exception>) result.getExceptions();
                         RestException exception = (RestException) exceptions.get(0);
 
                         assertTrue(exceptions.size() == 1);
@@ -226,8 +222,8 @@ public class SearchTaskTests extends TestCase {
      */
     public final void testExecuteShouldUrlEncodingException() throws InterruptedException {
 
-        mRequest.url = "http://www.ketopi.com/api_test/search_encoding.json";
-        mRequest.encoding = "ASMX-708";
+        mRequest.setUrl("http://www.ketopi.com/api_test/search_encoding.json");
+        mRequest.setEncoding("ASMX-708");
         final CountDownLatch latch = new CountDownLatch(1);
 
         // This thread is the "fake" UI thread
@@ -238,7 +234,7 @@ public class SearchTaskTests extends TestCase {
                 new SearchTask(new ISearchListener<SearchResult>() {
 
                     public void onSearchFinish(final SearchResult result) {
-                        ArrayList<Exception> exceptions = (ArrayList<Exception>) result.exceptions;
+                        ArrayList<Exception> exceptions = (ArrayList<Exception>) result.getExceptions();
                         RestException exception = (RestException) exceptions.get(0);
 
                         assertTrue(exceptions.size() == 1);

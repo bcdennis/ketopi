@@ -65,6 +65,27 @@ public class Food {
     }
 
     /**
+     * Copy constructor.
+     * @param food the Food object to copy.
+     */
+    public Food(final Food food) {
+        mId = new String(food.mId);
+        mNdbNo = new String(food.mNdbNo);
+        mDescription = new String(food.mDescription);
+        mAmount = new String(food.mAmount);
+        mMeasure = new String(food.mMeasure);
+        mGrams = new String(food.mGrams);
+        mCalories = new String(food.mCalories);
+        mProtein = new String(food.mProtein);
+        mFat = new String(food.mFat);
+        mCarbs = new String(food.mCarbs);
+        mFiber = new String(food.mFiber);
+        mSugars = new String(food.mSugars);
+        mNetCarbs = new String(food.mNetCarbs);
+
+    }
+
+    /**
      * Instantiates a new food.
      *
      * @param jsonObject the json object

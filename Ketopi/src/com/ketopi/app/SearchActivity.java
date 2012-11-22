@@ -1,5 +1,7 @@
 package com.ketopi.app;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ketopi.core.Food;
 import com.ketopi.core.ISearchListener;
 import com.ketopi.core.NoOp;
@@ -31,7 +34,7 @@ ISearchListener<SearchResult> {
     private String mLastQuery;
 
     /** The last search results list. */
-    private Food[] mLastResults;
+    private List<Food> mLastResults;
 
     /** The listview container for the search results. */
     private ListView mResultsList;
@@ -56,7 +59,7 @@ ISearchListener<SearchResult> {
      *
      * @return the lastResults
      */
-    public Food[] getLastResults() {
+    public List<Food> getLastResults() {
         return mLastResults;
     }
 
@@ -112,8 +115,8 @@ ISearchListener<SearchResult> {
      * @param result - the returned search result.
      */
     public void onSearchFinish(final SearchResult result) {
-        setLastQuery(result.query);
-        setLastResults(result.foods.toArray(new Food[] {}));
+        setLastQuery(result.getQuery());
+        setLastResults(result.getFoods());
 
         mSearchText.setText(getLastQuery());
         final SearchListAdapter adapter = new SearchListAdapter(this,
@@ -148,7 +151,7 @@ ISearchListener<SearchResult> {
      * @param results the results.
      * @return string the results serialized.
      */
-    private String serialize(final Food[] results) {
+    private String serialize(final List<Food> results) {
         final Gson gson = new Gson();
         return gson.toJson(results);
     }
@@ -167,7 +170,7 @@ ISearchListener<SearchResult> {
      *
      * @param lastResults the lastResults to set
      */
-    public void setLastResults(final Food[] lastResults) {
+    public void setLastResults(final List<Food> lastResults) {
         mLastResults = lastResults;
     }
 
@@ -186,9 +189,10 @@ ISearchListener<SearchResult> {
      * @param serialized the serialized
      * @return the list
      */
-    private Food[] unserialize(final String serialized) {
+    private List<Food> unserialize(final String serialized) {
         final Gson gson = new Gson();
-        return gson.fromJson(serialized, Food[].class);
+        return gson.fromJson(serialized, new TypeToken<List<Food>>() { }
+        .getType());
 
     }
 }
