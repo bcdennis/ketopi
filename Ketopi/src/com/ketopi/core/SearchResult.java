@@ -65,24 +65,6 @@ public class SearchResult {
     }
 
     /**
-     * Sets the exceptions.
-     *
-     * @param exceptions the exceptions to set
-     */
-    public void setExceptions(final List<Exception> exceptions) {
-        this.mExceptions = exceptions;
-    }
-
-    /**
-     * Sets the foods.
-     *
-     * @param foods the foods to set
-     */
-    public void setFoods(final List<Food> foods) {
-        this.mFoods = foods;
-    }
-
-    /**
      * Sets the query.
      *
      * @param query the query to set

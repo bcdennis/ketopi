@@ -186,6 +186,7 @@ public class RestClient {
         HttpResponse httpResponse;
 
         try {
+            //BADSMELL Pollyannish Integration Point
             httpResponse = client.execute(request);
             mResponseCode = httpResponse.getStatusLine().getStatusCode();
             message = httpResponse.getStatusLine().getReasonPhrase();

@@ -94,6 +94,7 @@ public class SearchTask {
 
         try {
             client.addHeader("Accept", "application/json");
+            //BADSMELL Unbound Query
             client.addParam("query",
                     URLEncoder.encode(request.getQuery(), request.getEncoding()));
 
